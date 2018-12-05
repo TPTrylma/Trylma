@@ -8,9 +8,13 @@ public class Trylma {
 
         Board board = new Board(6, 4);
 
+        int count = 0;
+
         for (Field field : board.fields) {
             System.out.println(field.getInfo());
+            if (field.checker != null) count++;
         }
+        System.out.println(count);
 
     }
 

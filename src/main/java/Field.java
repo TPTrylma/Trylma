@@ -17,4 +17,16 @@ public class Field {
         return "field pos: " + posX + " " + posY + " checker: " + checker.getInfo();
     }
 
+    void setInitChecker(int posX, int posY, String checker){
+        this.checker = new Checker(posX, posY, checker);
+    }
+
+    public int getPosX(){
+        return posX;
+    }
+
+    public int getPosY(){
+        return posY;
+    }
+
 }

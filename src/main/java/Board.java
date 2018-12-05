@@ -19,6 +19,7 @@ public class Board {
         curP = 1; //random
 
         createFields(size);
+        addCheckers(n, size);
     }
 
     String getCurPlayer(){
@@ -45,7 +46,7 @@ public class Board {
             start = size*3 -i;
             for (int j = 0; j < i + 1; j++) {
                 fields.add(new Field(start + j*2, i, "n"));
-                fields.add(new Field(start + j*2, 4*size-i, "green"));
+                fields.add(new Field(start + j*2, 4*size-i, "n"));
             }
         }
         // mid
@@ -62,5 +63,56 @@ public class Board {
             }
         }
     }
+
+    private void addCheckers(int n, int size){
+        for (Field field : fields) {
+            if (field.getPosY() > 3*size) {
+                field.setInitChecker(field.getPosX(), field.getPosY(), "green");
+            }
+
+            if (n == 2) {
+                if (field.getPosY() < size) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "yellow");
+                }
+            }
+            if (n == 3) {
+                if (field.getPosX() + field.getPosY() <= size*3 - 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "yellow");
+                }
+                if (field.getPosX() - field.getPosY() >= size*3 + 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "blue");
+                }
+            }
+            if (n == 4) {
+                if (field.getPosY() - field.getPosX() >= size + 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "yellow");
+                }
+                if (field.getPosY() < size) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "blue");
+                }
+                if (field.getPosX() - field.getPosY() >= size*3 + 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "orange");
+                }
+            }
+            if (n == 6){
+                if (field.getPosY() - field.getPosX() >= size + 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "yellow");
+                }
+                if (field.getPosX() + field.getPosY() <= size*3 - 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "blue");
+                }
+                if (field.getPosY() < size) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "orange");
+                }
+                if (field.getPosX() - field.getPosY() >= size*3 + 2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "grey");
+                }
+                if (field.getPosX() + field.getPosY() >= size*7 +2) {
+                    field.setInitChecker(field.getPosX(), field.getPosY(), "white");
+                }
+            }
+        }
+    }
+
 
 }
