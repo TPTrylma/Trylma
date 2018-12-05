@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Board {
 
@@ -23,7 +18,7 @@ public class Board {
         playingP = n;
         curP = 1; //random
 
-        fillingData(size);
+        createFields(size);
     }
 
     String getCurPlayer(){
@@ -43,20 +38,28 @@ public class Board {
         playingP--;
     }
 
-    void fillingData(int size) {
-        String file = "src/main/java/boards/board_" + maxP + "_" + size + ".txt";
-        try {
-            Scanner scanner = new Scanner(new File(file));
-
-            for (int i = 0; i < maxP; i++) {
-                players.add(scanner.next());
+    private void createFields(int size){
+        int start;
+        // top + bottom
+        for (int i = 0; i < size; i++) {
+            start = size*3 -i;
+            for (int j = 0; j < i + 1; j++) {
+                fields.add(new Field(start + j*2, i, "n"));
+                fields.add(new Field(start + j*2, 4*size-i, "green"));
             }
-
-            while (scanner.hasNext()){
-                fields.add(new Field(scanner.nextInt(), scanner.nextInt(), scanner.next()));
+        }
+        // mid
+        for (int i = 0; i < 2*size + 1; i++) {
+            start = size;
+            fields.add(new Field(start + i*2, 2*size, "n"));
+        }
+        // rest
+        for (int i = 0; i < size; i++) {
+            start = i;
+            for (int j = 0; j < 3*size +1 - i; j++) {
+                fields.add(new Field(start + j*2, i+size, "n"));
+                fields.add(new Field(start + j*2, 4*size-(i+size), "n"));
             }
-            scanner.close();
-        } catch (IOException e){
         }
     }
 

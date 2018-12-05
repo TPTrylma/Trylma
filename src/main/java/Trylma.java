@@ -6,24 +6,7 @@ public class Trylma {
 
     public static void main(String[] args) {
 
-        Board board = new Board(2, 2);
-
-        System.out.println(board.getCurPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println();
-        board.playerWin(1);
-
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
-        System.out.println(board.getNextPlayer());
+        Board board = new Board(6, 4);
 
         for (Field field : board.fields) {
             System.out.println(field.getInfo());
