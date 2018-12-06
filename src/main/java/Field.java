@@ -33,4 +33,7 @@ public class Field {
         return checker;
     }
 
+    public void setChecker(Checker checker){
+        this.checker = checker;
+    }
 }
