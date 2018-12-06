@@ -6,16 +6,17 @@ public class Trylma {
 
     public static void main(String[] args) {
 
-        Board board = new Board(6, 4);
+        int size = 5;
+        Board board = new Board(4, size);
 
-        int count = 0;
-
-        for (Field field : board.fields) {
-            System.out.println(field.getInfo());
-            if (field.checker != null) count++;
+        for (int i = 0; i <= size*4; i++) {
+            for (int j = 0; j <= size*6; j++) {
+                if (board.fieldArr[j][i] == null) System.out.print("-");
+                else if (board.fieldArr[j][i].checker == null) System.out.print("+");
+                else System.out.print(board.fieldArr[j][i].getChecker().getColor());
+            }
+            System.out.println();
         }
-        System.out.println(count);
-
     }
 
 }

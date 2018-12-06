@@ -14,4 +14,8 @@ public class Checker {
         return "pos: " + posX + " " + posY + " color: " + color;
     }
 
+    String getColor() {
+        return color;
+    }
+
 }

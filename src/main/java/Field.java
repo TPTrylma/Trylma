@@ -29,4 +29,8 @@ public class Field {
         return posY;
     }
 
+    public Checker getChecker(){
+        return checker;
+    }
+
 }
