@@ -1,27 +1,51 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.abs;
 
-public class Board {
+public class Board extends Application {
 
     List<String> players;
 
     Field fieldArr[][];
-
+    int size;
     int maxP;
     int playingP;
     int curP;
-
-    Board(int n, int size) {
+    @Override
+    public void start(Stage primaryStage){
+        Parameters p = getParameters();
+        List<String> l = p.getUnnamed();
+        size=Integer.parseInt(l.get(1));
+        maxP=Integer.parseInt(l.get(0));
+        playingP=Integer.parseInt(l.get(0));
+        curP = 1;
         players = new ArrayList<String>();
         fieldArr = new Field[size*6+1][size*4+1];
-        maxP = n;
-        playingP = n;
-        curP = 1; //random
-
         createFields(size);
-        addCheckers(n, size);
+        addCheckers(maxP, size);
+        Pane pane = new Pane();
+        for(int i =0; i<=size*4; i++){
+            for(int j=0; j<=size*6; j++){
+                if(fieldArr[j][i]!=null) {
+                    pane.getChildren().add(fieldArr[j][i]);
+                }
+                try{
+                    if(fieldArr[j][i].getChecker()!=null) pane.getChildren().add(fieldArr[j][i].getChecker());
+                }catch (Exception e){}
+            }
+        }
+        Scene scene = new Scene(pane, 1920, 1080);
+        primaryStage.setTitle("Trylma");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     String getCurPlayer(){
@@ -77,12 +101,12 @@ public class Board {
 
                     if (n == 2) {
                         if (i < size) {
-                            fieldArr[j][i].setInitChecker(j, i, "y");
+                            fieldArr[j][i].setInitChecker(j, i, "k");
                         }
                     }
                     if (n == 3) {
                         if (j+i <= size*3 - 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "y");
+                            fieldArr[j][i].setInitChecker(j, i, "k");
                         }
                         if (j-i >= size*3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, "b");
@@ -90,7 +114,7 @@ public class Board {
                     }
                     if (n == 4) {
                         if (i-j >= size + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "y");
+                            fieldArr[j][i].setInitChecker(j, i, "k");
                         }
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, "b");
@@ -101,7 +125,7 @@ public class Board {
                     }
                     if (n == 6) {
                         if (i-j >= size + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "y");
+                            fieldArr[j][i].setInitChecker(j, i, "k");
                         }
                         if (i+j <= size * 3 - 2) {
                             fieldArr[j][i].setInitChecker(j, i, "b");
@@ -110,10 +134,10 @@ public class Board {
                             fieldArr[j][i].setInitChecker(j, i, "o");
                         }
                         if (j-i >= size * 3 + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "e");
+                            fieldArr[j][i].setInitChecker(j, i, "r");
                         }
                         if (i+j >= size * 7 + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "w");
+                            fieldArr[j][i].setInitChecker(j, i, "p");
                         }
                     }
                 }
@@ -158,5 +182,4 @@ public class Board {
         from.setChecker(null);
         to.setChecker(tmp);
     }
-
 }
