@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Rules.*;
 
-import static java.lang.Math.abs;
 
-public class Board{
+public class Board {
 
     private List<String> players;
 
@@ -19,7 +18,7 @@ public class Board{
     private int playingP;
     private int curP;
 
-    Board(int p, int size, Rules rules) {
+    public Board(int p, int size, Rules rules) {
         this.rules = rules;
         this.size = size;
         maxP = p;
@@ -163,7 +162,7 @@ public class Board{
         }
     }
 
-    void move(int fromX, int fromY, int toX, int toY){
+    public void move(int fromX, int fromY, int toX, int toY){
         Field from = getField(fromX, fromY);
         Field to = getField(toX, toY);
         rules.move(from, to);

@@ -33,10 +33,10 @@ public class Checker extends Circle {
         return color;
     }
 
-    public void paint (Graphics g){
+    public void paint (Graphics g) {
         int y=80;
         int x=50;
-        if(color=="o") g.setColor(Color.ORANGE);
+        if(color.equals("o")) g.setColor(Color.ORANGE);                                       // !!!!!!!!!!!!!!!!!!!!!EQUALS!!!!!!!!!!!!
         else if(color=="g") g.setColor(Color.GREEN);
         else if(color=="b") g.setColor(Color.BLUE);
         else if(color=="r") g.setColor(Color.RED);

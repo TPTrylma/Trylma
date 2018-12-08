@@ -1,8 +1,6 @@
 import Board.Board;
 import Rules.ClassicRules;
 
-import static java.lang.Math.abs;
-import static javafx.application.Application.launch;
 
 public class Trylma {
     public static void main(String[] args) {
@@ -11,11 +9,11 @@ public class Trylma {
         Board board = new Board(6, size, new ClassicRules());
         //launch(Board.Board.class);
         prin(size, board);
+        board.move(6, 0, 7, 1);
+        prin(size, board);
+        board.move(6, 0, 8, 2);
+        prin(size, board);
         board.move(10, 2, 6, 2);
-        prin(size, board);
-        board.move(8, 2, 6, 0);
-        prin(size, board);
-        board.move(6, 0, 6, 4);
         prin(size, board);
     }
     static void prin(int size, Board board){
