@@ -1,61 +1,66 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+package Board;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import Rules.*;
 
 import static java.lang.Math.abs;
 
-public class Board extends Application {
+public class Board{
 
-    List<String> players;
+    private List<String> players;
 
-    Field fieldArr[][];
+    private Field fieldArr[][];
 
-    Rules rules;
+    private Rules rules;
 
-    int size;
-    int maxP;
-    int playingP;
-    int curP;
-    @Override
-    public void start(Stage primaryStage){
-        Parameters p = getParameters();
-        List<String> l = p.getUnnamed();
-        size=Integer.parseInt(l.get(1));
-        maxP=Integer.parseInt(l.get(0));
-        playingP=Integer.parseInt(l.get(0));
-        curP = 1;
-        players = new ArrayList<String>();
-        fieldArr = new Field[size*6+1][size*4+1];
+    private int size;
+    private int maxP;
+    private int playingP;
+    private int curP;
+
+    Board(int p, int size, Rules rules) {
         this.rules = rules;
+        this.size = size;
+        maxP = p;
+
+        fieldArr = new Field[size*6+1][size*4+1];
+        players = new ArrayList<String>();
 
         createFields(size);
-        addCheckers(maxP, size);
-        Pane pane = new Pane();
-        for(int i =0; i<=size*4; i++){
-            for(int j=0; j<=size*6; j++){
-                if(fieldArr[j][i]!=null) {
-                    pane.getChildren().add(fieldArr[j][i]);
-                }
-                try{
-                    if(fieldArr[j][i].getChecker()!=null) pane.getChildren().add(fieldArr[j][i].getChecker());
-                }catch (Exception e){}
-            }
-        }
-        Scene scene = new Scene(pane, 1920, 1080);
-        primaryStage.setTitle("Trylma");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        addCheckers(p, size);
     }
 
-    void setRules(Rules rules){
-        this.rules = rules;
-    }
+//    @Override
+//    public void start(Stage primaryStage){
+//        Parameters p = getParameters();
+//        List<String> l = p.getUnnamed();
+//        size=Integer.parseInt(l.get(1));
+//        maxP=Integer.parseInt(l.get(0));
+//        playingP=Integer.parseInt(l.get(0));
+//        curP = 1;
+//        players = new ArrayList<String>();
+//        fieldArr = new Board.Field[size*6+1][size*4+1];
+//        this.rules = rules;
+//
+//        createFields(size);
+//        addCheckers(maxP, size);
+//        Pane pane = new Pane();
+//        for(int i =0; i<=size*4; i++){
+//            for(int j=0; j<=size*6; j++){
+//                if(fieldArr[j][i]!=null) {
+//                    pane.getChildren().add(fieldArr[j][i]);
+//                }
+//                try{
+//                    if(fieldArr[j][i].getChecker()!=null) pane.getChildren().add(fieldArr[j][i].getChecker());
+//                }catch (Exception e){}
+//            }
+//        }
+//        Scene scene = new Scene(pane, 1920, 1080);
+//        primaryStage.setTitle("Trylma");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//    }
 
     String getCurPlayer(){
         return players.get(curP);
@@ -69,7 +74,7 @@ public class Board extends Application {
         return players.get(curP);
     }
 
-    Field getField(int x, int y){
+    public Field getField(int x, int y){
         return fieldArr[x][y];
     }
 
@@ -162,12 +167,6 @@ public class Board extends Application {
         Field from = getField(fromX, fromY);
         Field to = getField(toX, toY);
         rules.move(from, to);
-    }
-
-    private void visualMove(Field from, Field to){
-        Checker tmp = from.getChecker();
-        from.setChecker(null);
-        to.setChecker(tmp);
     }
 
 }

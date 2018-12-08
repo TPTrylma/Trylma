@@ -1,14 +1,13 @@
+package Board;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-    Board board;
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Field extends Circle {
 
     Checker checker;
+    Board board;
 
     Field(int posX, int posY, String checker, Board board){
         this.posX = posX;

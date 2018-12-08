@@ -1,8 +1,12 @@
+package Rules;
+
+import Board.*;
+
 import static java.lang.Math.abs;
 
 public class ClassicRules extends Rules {
 
-    int move(Field from, Field to) {
+    public int move(Field from, Field to) {
 
         if (from.getChecker() == null) {
             System.out.println("tuta pusto");
@@ -14,13 +18,13 @@ public class ClassicRules extends Rules {
             return 0;
         }
 
-        if ((abs(from.getPosX()-to.getPosX()) + abs(from.getPosY()-to.getPosY()) == 2 && abs(from.getPosY() - to.getPosY()) <= 1)) {
+        if ((Math.abs(from.getPosX()-to.getPosX()) + Math.abs(from.getPosY()-to.getPosY()) == 2 && Math.abs(from.getPosY() - to.getPosY()) <= 1)) {
             visualMove(from, to);
             return 1;
         }
         //jump
-        else if ((abs(from.getPosX()-to.getPosX()) + abs(from.getPosY()-to.getPosY()) == 4 && abs(from.getPosY() - to.getPosY()) <= 2)) {
-            if (from.getBoard().getField((from.getPosX()+to.getPosX())/2, (from.getPosY()+to.getPosY())/2) != null) {
+        else if ((Math.abs(from.getPosX()-to.getPosX()) + Math.abs(from.getPosY()-to.getPosY()) == 4 && Math.abs(from.getPosY() - to.getPosY()) <= 2)) {
+            if (from.getBoard().getField((from.getPosX()+to.getPosX())/2, (from.getPosY()+to.getPosY())/2).getChecker() != null) {
                 visualMove(from, to);
                 return 1;
             }

@@ -1,3 +1,5 @@
+package Board;
+
 import javax.swing.*;
 import java.awt.*;
 import javafx.scene.shape.Circle;
@@ -27,9 +29,10 @@ public class Checker extends Circle {
         return "pos: " + posX + " " + posY + " color: " + color;
     }
 
-    String getColor() {
+    public String getColor() {
         return color;
     }
+
     public void paint (Graphics g){
         int y=80;
         int x=50;
@@ -41,6 +44,7 @@ public class Checker extends Circle {
         else if(color=="p") g.setColor(Color.PINK);
         g.fillOval(posX * 30 +8+ x, y +8+ posY * 55, 45, 45);
     }
+
     /*public void paintComponent(Graphics g1) {
         super.paintComponent(g1);
         Graphics2D g = (Graphics2D) g1;
