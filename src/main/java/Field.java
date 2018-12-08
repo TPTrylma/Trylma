@@ -1,15 +1,17 @@
 public class Field {
 
+    Board board;
     Checker checker;
     int posX;
     int posY;
 
-    Field(int posX, int posY, String checker){
+    Field(int posX, int posY, String checker, Board board){
         this.posX = posX;
         this.posY = posY;
         if (!checker.equals("n")){
             this.checker = new Checker(posX, posY, checker);
         }
+        this.board = board;
     }
 
     String getInfo(){
@@ -31,6 +33,10 @@ public class Field {
 
     public Checker getChecker(){
         return checker;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     public void setChecker(Checker checker){

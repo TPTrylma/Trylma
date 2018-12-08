@@ -9,19 +9,26 @@ public class Board {
 
     Field fieldArr[][];
 
+    Rules rules;
+
     int maxP;
     int playingP;
     int curP;
 
-    Board(int n, int size) {
+    Board(int n, int size, Rules rules) {
         players = new ArrayList<String>();
         fieldArr = new Field[size*6+1][size*4+1];
         maxP = n;
         playingP = n;
         curP = 1; //random
+        this.rules = rules;
 
         createFields(size);
         addCheckers(n, size);
+    }
+
+    void setRules(Rules rules){
+        this.rules = rules;
     }
 
     String getCurPlayer(){
@@ -36,6 +43,10 @@ public class Board {
         return players.get(curP);
     }
 
+    Field getField(int x, int y){
+        return fieldArr[x][y];
+    }
+
     void playerWin(int n){
         players.remove(n);
         playingP--;
@@ -48,21 +59,21 @@ public class Board {
         for (int i = 0; i < size; i++) {
             start = size*3 -i;
             for (int j = 0; j < i + 1; j++) {
-                fieldArr[start + j*2][i] = new Field(start + j*2, i, "n");
-                fieldArr[start + j*2][4*size-i] = new Field(start + j*2, 4*size-i, "n");
+                fieldArr[start + j*2][i] = new Field(start + j*2, i, "n", this);
+                fieldArr[start + j*2][4*size-i] = new Field(start + j*2, 4*size-i, "n", this);
             }
         }
         // mid
         for (int i = 0; i < 2*size + 1; i++) {
             start = size;
-            fieldArr[start + i*2][2*size] = new Field(start + i*2, 2*size, "n");
+            fieldArr[start + i*2][2*size] = new Field(start + i*2, 2*size, "n", this);
         }
         // rest
         for (int i = 0; i < size; i++) {
             start = i;
             for (int j = 0; j < 3*size +1 - i; j++) {
-                fieldArr[start + j*2][i+size] = new Field(start + j*2, i+size, "n");
-                fieldArr[start + j*2][3*size-i] = new Field(start + j*2, 3*size-i, "n");
+                fieldArr[start + j*2][i+size] = new Field(start + j*2, i+size, "n", this);
+                fieldArr[start + j*2][3*size-i] = new Field(start + j*2, 3*size-i, "n",this);
             }
         }
     }
@@ -121,42 +132,11 @@ public class Board {
         }
     }
 
-    int move(int fromX, int fromY, int toX, int toY){
-        Field from = fieldArr[fromX][fromY];
-        Field to = fieldArr[toX][toY];
-        if (from.getChecker() == null) {
-            System.out.println("tuta pusto");
-            return 0;
-        }
-        //if (from.getChecker().getColor() != curP) ...
-        if (to.getChecker() != null) {
-            System.out.println("zanjato");
-            return 0;
-        }
-
-        int rules = 0;  //get From static in main or properties
-
-        if (rules == 0) {
-            if ((abs(from.getPosX()-to.getPosX()) + abs(from.getPosY()-to.getPosY()) == 2 && abs(from.getPosY() - to.getPosY()) <= 1)) {
-                visualMove(from, to);
-                return 1;
-            }
-            //jump
-            else if ((abs(from.getPosX()-to.getPosX()) + abs(from.getPosY()-to.getPosY()) == 4 && abs(from.getPosY() - to.getPosY()) <= 2)) {
-                if (fieldArr[(from.getPosX()+to.getPosX())/2][(from.getPosY()+to.getPosY())/2].getChecker() != null) {
-                    visualMove(from, to);
-                    return 1;
-                }
-            }
-        }
-        System.out.println("daleko");
-        return 0;
+    void move(int fromX, int fromY, int toX, int toY){
+        Field from = getField(fromX, fromY);
+        Field to = getField(toX, toY);
+        rules.move(from, to);
     }
 
-    private void visualMove(Field from, Field to){
-        Checker tmp = from.getChecker();
-        from.setChecker(null);
-        to.setChecker(tmp);
-    }
 
 }

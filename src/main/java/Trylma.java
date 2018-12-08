@@ -9,7 +9,7 @@ public class Trylma {
     public static void main(String[] args) {
 
         int size = 2;
-        Board board = new Board(6, size);
+        Board board = new Board(6, size, new ClassicRules());
 
         prin(size, board);
         board.move(6, 0, 8, 2);
