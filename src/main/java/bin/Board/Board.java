@@ -1,15 +1,15 @@
-package Board;
+package bin.Board;
 
 import java.util.ArrayList;
 import java.util.List;
-import Rules.*;
+import bin.Rules.*;
 
 
 public class Board {
 
     private List<String> players;
 
-    private Field fieldArr[][];
+    public Field fieldArr[][];
 
     private Rules rules;
 
@@ -28,38 +28,8 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
-    }
 
-//    @Override
-//    public void start(Stage primaryStage){
-//        Parameters p = getParameters();
-//        List<String> l = p.getUnnamed();
-//        size=Integer.parseInt(l.get(1));
-//        maxP=Integer.parseInt(l.get(0));
-//        playingP=Integer.parseInt(l.get(0));
-//        curP = 1;
-//        players = new ArrayList<String>();
-//        fieldArr = new Board.Field[size*6+1][size*4+1];
-//        this.rules = rules;
-//
-//        createFields(size);
-//        addCheckers(maxP, size);
-//        Pane pane = new Pane();
-//        for(int i =0; i<=size*4; i++){
-//            for(int j=0; j<=size*6; j++){
-//                if(fieldArr[j][i]!=null) {
-//                    pane.getChildren().add(fieldArr[j][i]);
-//                }
-//                try{
-//                    if(fieldArr[j][i].getChecker()!=null) pane.getChildren().add(fieldArr[j][i].getChecker());
-//                }catch (Exception e){}
-//            }
-//        }
-//        Scene scene = new Scene(pane, 1920, 1080);
-//        primaryStage.setTitle("Trylma");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//    }
+    }
 
     String getCurPlayer(){
         return players.get(curP);

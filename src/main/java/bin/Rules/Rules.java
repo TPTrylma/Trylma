@@ -1,6 +1,6 @@
-package Rules;
+package bin.Rules;
 
-import Board.*;
+import bin.Board.*;
 
 public abstract class Rules {
 

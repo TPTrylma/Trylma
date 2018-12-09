@@ -1,7 +1,7 @@
-package Rules;
+package bin.Rules;
 
-import Board.Board;
-import Board.Field;
+import bin.Board.Board;
+import bin.Board.Field;
 
 import java.util.ArrayList;
 import java.util.List;
