@@ -21,7 +21,7 @@ public class Field extends Circle {
         setFill(Color.GRAY);
     }
 
-    String getInfo(){
+    public String getInfo(){
         if (checker == null) return "field pos: " + posX + " " + posY;
         return "field pos: " + posX + " " + posY + " checker: " + checker.getInfo();
     }
