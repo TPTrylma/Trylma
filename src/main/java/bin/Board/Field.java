@@ -18,9 +18,9 @@ public class Field extends Circle {
         this.board = board;
         setRadius(30);
         relocate(posX*30, posY*55);
+        System.out.println("Field add");
         setFill(Color.GRAY);
     }
-
     public String getInfo(){
         if (checker == null) return "field pos: " + posX + " " + posY;
         return "field pos: " + posX + " " + posY + " checker: " + checker.getInfo();
@@ -31,7 +31,6 @@ public class Field extends Circle {
 
     void setInitChecker(int posX, int posY, String checker){
         this.checker = new Checker(posX, posY, checker);
-        //checkers.add(this.checker);
     }
 
     public int getPosX(){

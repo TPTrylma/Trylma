@@ -36,31 +36,35 @@ public class TestMenuController {
         int players = Integer.parseInt(playersField.getText());
         int size = Integer.parseInt(sizeField.getText());
         Board board = new Board(players, size, new ClassicRules());
-        Pane pane = new Pane();
-        //Scene scene = new Scene(pane, 1000, 1000);
 
-        //Trylma.window.setTitle("Trylma");
+        Pane paneChecker = new Pane();
+        Pane paneField = new Pane();
+        AnchorPane rootPane = new AnchorPane();
         for(int i =0; i<=size*4; i++){
             for(int j=0; j<=size*6; j++){
                 if(board.fieldArr[j][i]!=null) {
-                    pane.getChildren().add(board.fieldArr[j][i]);
+                    paneField.getChildren().add(board.fieldArr[j][i]);
                 }
                 try{
-                    if(board.fieldArr[j][i].getChecker()!=null) pane.getChildren().add(board.fieldArr[j][i].getChecker());
+                    if(board.fieldArr[j][i].getChecker()!=null) paneChecker.getChildren().add(board.fieldArr[j][i].getChecker());
                 }catch (Exception e){}
             }
         }
+        rootPane.getChildren().addAll(paneField, paneChecker);
 
         URL url = new File("src/main/resources/fxml/game.fxml").toURL();
         FXMLLoader loader = new FXMLLoader(url);
+
         AnchorPane aPane = loader.load();
         GameController gc = loader.getController();
 
-        gc.setPane(pane);
+        gc.setPane(rootPane);
 
         gameScene = new Scene(aPane);
+        board.move(15, 3, 14, 4);
 
         Trylma.window.setScene(gameScene);
+
     }
 
 }

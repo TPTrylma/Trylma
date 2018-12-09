@@ -11,6 +11,7 @@ public abstract class Rules {
         Checker tmp = from.getChecker();
         from.setChecker(null);
         to.setChecker(tmp);
+        tmp.move(to.getPosX(), to.getPosY());
         System.out.println(from.getPosX() + " " + from.getPosY() + "  ->  " + to.getPosX() + " " + to.getPosY());
     }
 
