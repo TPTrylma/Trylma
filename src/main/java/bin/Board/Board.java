@@ -11,7 +11,7 @@ public class Board {
 
     public Field fieldArr[][];
 
-    private Rules rules;
+    public Rules rules;
 
     private int size;
     private int maxP;

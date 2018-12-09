@@ -3,6 +3,8 @@ package bin.Board;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import static bin.Trylma.board;
+
 
 public class Field extends Circle {
 
@@ -28,7 +30,7 @@ public class Field extends Circle {
     int posY;
 
 
-    void setInitChecker(int posX, int posY, String checker){
+    public void setInitChecker(int posX, int posY, String checker){
         this.checker = new Checker(posX, posY, checker);
     }
 

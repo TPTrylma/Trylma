@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 
 public class GameController {
-
+    double orgSceneX, orgSceneY;
     @FXML
     private Pane trylma;
 

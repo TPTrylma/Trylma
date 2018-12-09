@@ -9,10 +9,11 @@ public abstract class Rules {
 
     void visualMove(Field from, Field to){
         Checker tmp = from.getChecker();
+        System.out.println(from.getPosX()+" "+from.getPosY()+" "+from.getChecker());
         from.setChecker(null);
         to.setChecker(tmp);
         tmp.move(to.getPosX(), to.getPosY());
-        System.out.println(from.getPosX() + " " + from.getPosY() + "  ->  " + to.getPosX() + " " + to.getPosY());
+        System.out.println(from.getPosX() + " " + from.getPosY() + "  ->  " + to.getPosX() + " " + to.getPosY()+" " +to.getChecker());
     }
 
 }

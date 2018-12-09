@@ -1,15 +1,23 @@
 package bin.Board;
 
 import java.awt.*;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+
+import static bin.Trylma.board;
 
 public class Checker extends Circle {
 
     int posX;
     int posY;
     String color;
+    private double mouseX, mouseY;
+    private double oldX, oldY;
 
-    Checker(int posX, int posY, String color){
+    public Checker(int posX, int posY, String color){
         this.posX = posX;
         this.posY = posY;
         this.color = color;
@@ -21,6 +29,18 @@ public class Checker extends Circle {
         else if(color.equals("k")) setFill(javafx.scene.paint.Color.BLACK);
         else if(color.equals("p")) setFill(javafx.scene.paint.Color.PINK);
         move(posX, posY);
+        setOnMousePressed( e-> {
+            mouseX=e.getSceneX();
+            mouseY=e.getSceneY();
+
+        });
+        setOnMouseDragged(e->{
+            relocate(e.getSceneX()-mouseX+oldX, e.getSceneY()-mouseY+oldY);
+        });
+        setOnMouseReleased(e->{
+            board.rules.move(checkPosition(oldX , oldY),
+                    checkPosition(e.getSceneX()-mouseX+oldX, e.getSceneY()-mouseY+oldY));
+        });
     }
 
 
@@ -32,7 +52,13 @@ public class Checker extends Circle {
         return color;
     }
     public void move(int x, int y){
-        relocate(x*27+5, y*47+5);
+        oldX = x*27+5;
+        oldY=y*47+5;
+        relocate(oldX, oldY);
     }
-
+    public Field checkPosition(double x, double y){
+        int newX=(int)(x)/27;
+        int newY=(int)(y)/47;
+        return board.fieldArr[newX][newY];
+    }
 }

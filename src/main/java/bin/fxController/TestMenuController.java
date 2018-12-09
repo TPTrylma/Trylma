@@ -35,7 +35,7 @@ public class TestMenuController {
 
         int players = Integer.parseInt(playersField.getText());
         int size = Integer.parseInt(sizeField.getText());
-        Trylma.board = new Board(players, size, new LongJumpRules());
+        Trylma.board = new Board(players, size, new ClassicRules());
 
         Pane paneChecker = new Pane();
         Pane paneField = new Pane();
