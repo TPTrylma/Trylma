@@ -166,6 +166,8 @@ public class Board {
         Field from = getField(fromX, fromY);
         Field to = getField(toX, toY);
         rules.move(from, to);
+
+        //CHECK FOR WINNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
 }

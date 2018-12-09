@@ -1,32 +1,28 @@
-import Board.Board;
-import Rules.ClassicRules;
-import Rules.LongJumpRules;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
 
 
-public class Trylma {
-    public static void main(String[] args) {
+public class Trylma extends Application {
 
-        int size = 4;
-        Board board = new Board(6, size, new LongJumpRules());
-        //launch(Board.Board.class);
-
-        prin(size, board);
-        board.move(15, 3, 14, 4);
-        prin(size, board);
-        board.move(18, 4, 10, 4);
-        prin(size, board);
-
-
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        URL url = new File("src/main/resources/fxml/testMenu.fxml").toURL();
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
-    static void prin(int size, Board board){
-        for (int i = 0; i <= size*4; i++) {
-            for (int j = 0; j <= size*6; j++) {
-                if (board.getField(j, i) == null) System.out.print(" ");
-                else if (board.getField(j, i).getChecker() == null) System.out.print("-");
-                else System.out.print(board.getField(j, i).getChecker().getColor());
-            }
-            System.out.println();
-        }
+
+    public static void main(String[] args) {
+        launch(args);
+
+
     }
 
 }
