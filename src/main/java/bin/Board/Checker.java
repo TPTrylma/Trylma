@@ -13,7 +13,7 @@ public class Checker extends Circle {
         this.posX = posX;
         this.posY = posY;
         this.color = color;
-        setRadius(24);
+        setRadius(22);
         if(color.equals("o")) setFill(javafx.scene.paint.Color.ORANGE);
         else if(color.equals("g")) setFill(javafx.scene.paint.Color.GREEN);
         else if(color.equals("b")) setFill(javafx.scene.paint.Color.BLUE);
@@ -32,7 +32,7 @@ public class Checker extends Circle {
         return color;
     }
     public void move(int x, int y){
-        relocate(x*30+6, y*55+6);
+        relocate(x*27+5, y*47+5);
     }
 
 }

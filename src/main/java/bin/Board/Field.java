@@ -16,8 +16,8 @@ public class Field extends Circle {
             this.checker = new Checker(posX, posY, checker);
         }
         this.board = board;
-        setRadius(30);
-        relocate(posX*30, posY*55);
+        setRadius(27);
+        relocate(posX*27, posY*47);
         setFill(Color.GRAY);
     }
     public String getInfo(){
