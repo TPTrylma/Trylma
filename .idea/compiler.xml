@@ -9,5 +9,8 @@
         <module name="Trylma" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Trylma" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

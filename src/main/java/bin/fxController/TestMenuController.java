@@ -1,12 +1,10 @@
 package bin.fxController;
 
 import bin.Board.Board;
-import bin.Rules.ClassicRules;
 import bin.Rules.LongJumpRules;
 import bin.Trylma;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 public class TestMenuController {
@@ -35,7 +32,7 @@ public class TestMenuController {
 
         int players = Integer.parseInt(playersField.getText());
         int size = Integer.parseInt(sizeField.getText());
-        Trylma.board = new Board(players, size, new ClassicRules());
+        Trylma.board = new Board(players, size, new LongJumpRules());
 
         Pane paneChecker = new Pane();
         Pane paneField = new Pane();
