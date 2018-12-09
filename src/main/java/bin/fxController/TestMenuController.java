@@ -35,18 +35,18 @@ public class TestMenuController {
 
         int players = Integer.parseInt(playersField.getText());
         int size = Integer.parseInt(sizeField.getText());
-        Board board = new Board(players, size, new ClassicRules());
+        Trylma.board = new Board(players, size, new LongJumpRules());
 
         Pane paneChecker = new Pane();
         Pane paneField = new Pane();
         AnchorPane rootPane = new AnchorPane();
         for(int i =0; i<=size*4; i++){
             for(int j=0; j<=size*6; j++){
-                if(board.fieldArr[j][i]!=null) {
-                    paneField.getChildren().add(board.fieldArr[j][i]);
+                if(Trylma.board.fieldArr[j][i]!=null) {
+                    paneField.getChildren().add(Trylma.board.fieldArr[j][i]);
                 }
                 try{
-                    if(board.fieldArr[j][i].getChecker()!=null) paneChecker.getChildren().add(board.fieldArr[j][i].getChecker());
+                    if(Trylma.board.fieldArr[j][i].getChecker()!=null) paneChecker.getChildren().add(Trylma.board.fieldArr[j][i].getChecker());
                 }catch (Exception e){}
             }
         }
@@ -61,7 +61,6 @@ public class TestMenuController {
         gc.setPane(rootPane);
 
         gameScene = new Scene(aPane);
-        board.move(15, 3, 14, 4);
 
         Trylma.window.setScene(gameScene);
 

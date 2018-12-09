@@ -1,5 +1,6 @@
 package bin;
 
+import bin.Board.Board;
 import bin.fxController.TestMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,8 @@ import java.net.URL;
 public class Trylma extends Application {
 
     public static Stage window;
+
+    public static Board board;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
