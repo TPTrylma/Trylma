@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.fxController.GameController">
    <children>
       <Pane fx:id="trylma" layoutX="14.0" layoutY="14.0" prefHeight="872.0" prefWidth="872.0" />
-      <Button layoutX="1093.0" layoutY="444.0" mnemonicParsing="false" onAction="#movePressed" text="Move" />
-      <TextField fx:id="fromX" layoutX="921.0" layoutY="316.0" prefHeight="26.0" prefWidth="84.0" />
-      <TextField fx:id="toX" layoutX="921.0" layoutY="371.0" prefHeight="26.0" prefWidth="84.0" />
-      <TextField fx:id="fromY" layoutX="1011.0" layoutY="315.0" prefHeight="26.0" prefWidth="84.0" />
-      <TextField fx:id="toY" layoutX="1011.0" layoutY="371.0" prefHeight="26.0" prefWidth="84.0" />
-      <Label layoutX="987.0" layoutY="279.0" text="From" />
-      <Label layoutX="986.0" layoutY="355.0" text="To" />
+      <Button layoutX="1042.0" layoutY="295.0" mnemonicParsing="false" onAction="#finishPressed" text="Finish" />
    </children>
 </AnchorPane>

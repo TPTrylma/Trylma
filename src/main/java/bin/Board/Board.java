@@ -11,15 +11,17 @@ public class Board {
 
     private List<String> players;
 
-    public Field fieldArr[][];
+    private Field fieldArr[][];
 
-    public Rules rules;
+    private Rules rules;
 
     private int size;
     private int maxP;
 
     private int playingP;
     private int curP;
+
+    private Checker touchedChecker;
 
     public Board(int p, int size, Rules rules) {
         this.rules = rules;
@@ -43,14 +45,22 @@ public class Board {
 
     }
 
+    public Field[][] getArr() {
+        return fieldArr;
+    }
+
     public String getCurPlayer() {
         return players.get(curP);
     }
 
-    private void nextPlayer() {
+    public void nextPlayer() {
         curP += 1;
         if (curP >= playingP){
             curP = 0;
+        }
+        System.out.println("cur p " + curP);
+        if (getTouchedChecker() != null) {
+            setTouchedChecker(null);
         }
     }
 
@@ -152,11 +162,14 @@ public class Board {
         if (rules.move(from, to) == 1) {
             nextPlayer();
         }
-        System.out.println("cur p " + curP);
-
         //CHECK FOR WINNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
+    public void setTouchedChecker(Checker touchedChecker) {
+        this.touchedChecker = touchedChecker;
+    }
 
-
+    public Checker getTouchedChecker() {
+        return touchedChecker;
+    }
 }

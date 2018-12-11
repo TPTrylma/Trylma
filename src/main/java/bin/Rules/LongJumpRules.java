@@ -29,7 +29,18 @@ public class LongJumpRules extends Rules {
                 return 0;
             }
 
+            if (from.getChecker() != from.getBoard().getTouchedChecker() && from.getBoard().getTouchedChecker() != null) {
+                System.out.println("Wrong checker");
+                visualMove(from, from);
+                return 0;
+            }
+
             if ((Math.abs(from.getPosX() - to.getPosX()) + Math.abs(from.getPosY() - to.getPosY()) == 2 && Math.abs(from.getPosY() - to.getPosY()) <= 1)) {
+                if (from.getBoard().getTouchedChecker() != null) {
+                    System.out.println("only jump!");
+                    visualMove(from, from);
+                    return 0;
+                }
                 visualMove(from, to);
                 return 1;
             }
@@ -39,8 +50,11 @@ public class LongJumpRules extends Rules {
                 if (Math.abs(from.getPosX() - to.getPosX()) == 0 || Math.abs(from.getPosY() - to.getPosY()) == 0 ||
                         Math.abs(from.getPosX() - to.getPosX()) - Math.abs(from.getPosY() - to.getPosY()) == 0) {
                     if (isOneBetweenInMid(from, to)) {
+                        if (from.getBoard().getTouchedChecker() == null) {
+                            from.getBoard().setTouchedChecker(from.getChecker());
+                        }
                         visualMove(from, to);
-                        return 1;
+                        return 2;
                     }
                     List<Field> fieldsBetween = new ArrayList<Field>();
                 }

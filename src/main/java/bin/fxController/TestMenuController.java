@@ -39,11 +39,11 @@ public class TestMenuController {
         AnchorPane rootPane = new AnchorPane();
         for(int i =0; i<=size*4; i++){
             for(int j=0; j<=size*6; j++){
-                if(Trylma.board.fieldArr[j][i]!=null) {
-                    paneField.getChildren().add(Trylma.board.fieldArr[j][i]);
+                if(Trylma.board.getArr()[j][i]!=null) {
+                    paneField.getChildren().add(Trylma.board.getArr()[j][i]);
                 }
                 try{
-                    if(Trylma.board.fieldArr[j][i].getChecker()!=null) paneChecker.getChildren().add(Trylma.board.fieldArr[j][i].getChecker());
+                    if(Trylma.board.getArr()[j][i].getChecker()!=null) paneChecker.getChildren().add(Trylma.board.getArr()[j][i].getChecker());
                 }catch (Exception e){}
             }
         }
