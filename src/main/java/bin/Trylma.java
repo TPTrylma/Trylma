@@ -19,6 +19,7 @@ public class Trylma extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         window = primaryStage;
         URL url = new File("src/main/resources/fxml/testMenu.fxml").toURL();
         Parent root = FXMLLoader.load(url);

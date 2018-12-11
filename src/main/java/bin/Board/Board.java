@@ -2,6 +2,8 @@ package bin.Board;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import bin.Rules.*;
 
 
@@ -15,6 +17,7 @@ public class Board {
 
     private int size;
     private int maxP;
+
     private int playingP;
     private int curP;
 
@@ -22,25 +25,33 @@ public class Board {
         this.rules = rules;
         this.size = size;
         maxP = p;
+        playingP = p;
+
+        Random rand = new Random();
+        curP = rand.nextInt(p);
+        System.out.println("cur p " + curP);
 
         fieldArr = new Field[size*6+1][size*4+1];
-        players = new ArrayList<String>();
+        players = new ArrayList<>();
 
         createFields(size);
         addCheckers(p, size);
 
+        for (int i = 0; i < p; i++) {
+            players.add(Integer.toString(i));
+        }
+
     }
 
-    String getCurPlayer(){
+    public String getCurPlayer() {
         return players.get(curP);
     }
 
-    String getNextPlayer(){
+    private void nextPlayer() {
         curP += 1;
         if (curP >= playingP){
             curP = 0;
         }
-        return players.get(curP);
     }
 
     public Field getField(int x, int y){
@@ -63,11 +74,13 @@ public class Board {
                 fieldArr[start + j*2][4*size-i] = new Field(start + j*2, 4*size-i, "n", this);
             }
         }
+
         // mid
         for (int i = 0; i < 2*size + 1; i++) {
             start = size;
             fieldArr[start + i*2][2*size] = new Field(start + i*2, 2*size, "n", this);
         }
+
         // rest
         for (int i = 0; i < size; i++) {
             start = i;
@@ -83,48 +96,48 @@ public class Board {
             for (int j = 0; j < size*6+1; j++) {
                 if (fieldArr[j][i] != null) {
                     if (i > 3 * size) {
-                        fieldArr[j][i].setInitChecker(j, i, "g");
+                        fieldArr[j][i].setInitChecker(j, i, "0");
                     }
 
                     if (n == 2) {
                         if (i < size) {
-                            fieldArr[j][i].setInitChecker(j, i, "k");
+                            fieldArr[j][i].setInitChecker(j, i, "1");
                         }
                     }
                     if (n == 3) {
                         if (j+i <= size*3 - 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "k");
+                            fieldArr[j][i].setInitChecker(j, i, "1");
                         }
                         if (j-i >= size*3 + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "b");
+                            fieldArr[j][i].setInitChecker(j, i, "2");
                         }
                     }
                     if (n == 4) {
                         if (i-j >= size + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "k");
+                            fieldArr[j][i].setInitChecker(j, i, "1");
                         }
                         if (i < size) {
-                            fieldArr[j][i].setInitChecker(j, i, "b");
+                            fieldArr[j][i].setInitChecker(j, i, "2");
                         }
                         if (j-i >= size * 3 + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "o");
+                            fieldArr[j][i].setInitChecker(j, i, "3");
                         }
                     }
                     if (n == 6) {
                         if (i-j >= size + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "k");
+                            fieldArr[j][i].setInitChecker(j, i, "1");
                         }
                         if (i+j <= size * 3 - 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "b");
+                            fieldArr[j][i].setInitChecker(j, i, "2");
                         }
                         if (i < size) {
-                            fieldArr[j][i].setInitChecker(j, i, "o");
+                            fieldArr[j][i].setInitChecker(j, i, "3");
                         }
                         if (j-i >= size * 3 + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "r");
+                            fieldArr[j][i].setInitChecker(j, i, "4");
                         }
                         if (i+j >= size * 7 + 2) {
-                            fieldArr[j][i].setInitChecker(j, i, "p");
+                            fieldArr[j][i].setInitChecker(j, i, "5");
                         }
                     }
                 }
@@ -135,9 +148,15 @@ public class Board {
     public void move(int fromX, int fromY, int toX, int toY){
         Field from = getField(fromX, fromY);
         Field to = getField(toX, toY);
-        rules.move(from, to);
+
+        if (rules.move(from, to) == 1) {
+            nextPlayer();
+        }
+        System.out.println("cur p " + curP);
 
         //CHECK FOR WINNER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
+
+
 
 }
