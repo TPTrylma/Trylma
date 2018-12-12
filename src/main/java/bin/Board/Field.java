@@ -11,12 +11,10 @@ public class Field extends Circle {
     Checker checker;
     Board board;
 
-    Field(int posX, int posY, String checker, Board board){
+    Field(int posX, int posY, Board board){
         this.posX = posX;
         this.posY = posY;
-        if (!checker.equals("n")){
-            this.checker = new Checker(posX, posY, checker);
-        }
+
         this.board = board;
         setRadius(27);
         relocate(posX*27, posY*47);
@@ -30,7 +28,7 @@ public class Field extends Circle {
     int posY;
 
 
-    public void setInitChecker(int posX, int posY, String checker){
+    public void setInitChecker(int posX, int posY, int checker){
         this.checker = new Checker(posX, posY, checker);
     }
 

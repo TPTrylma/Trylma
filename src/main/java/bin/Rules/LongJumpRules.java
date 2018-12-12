@@ -17,7 +17,7 @@ public class LongJumpRules extends Rules {
                 return 0;
             }
 
-            if (!from.getChecker().getColor().equals(from.getBoard().getCurPlayer())) {
+            if (from.getChecker().getColor() != from.getBoard().getCurPlayer()) {
                 System.out.println("not your turn (or checker)");
                 visualMove(from, from);
                 return 0;
