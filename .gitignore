@@ -13,3 +13,5 @@ workspace.xml
 hs_err_pid*
 
 \.idea/encodings\.xml
+
+\.idea/misc\.xml
