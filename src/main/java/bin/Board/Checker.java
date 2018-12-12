@@ -7,8 +7,8 @@ import static bin.Trylma.board;
 
 public class Checker extends Circle {
 
-    int posX;
-    int posY;
+    public int posX;
+    public int posY;
     String color;
     private double mouseX, mouseY;
     private double oldX, oldY;

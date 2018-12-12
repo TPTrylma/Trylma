@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import bin.Bot;
 import bin.Rules.*;
 
 
@@ -22,7 +23,8 @@ public class Board {
     private int curP;
 
     private Checker touchedChecker;
-
+    List<Checker> checkers = new ArrayList<>();
+    Bot bot;
     public Board(int p, int size, Rules rules) {
         this.rules = rules;
         this.size = size;
@@ -30,7 +32,8 @@ public class Board {
         playingP = p;
 
         Random rand = new Random();
-        curP = rand.nextInt(p);
+        //curP = rand.nextInt(p);
+        curP=0;
         System.out.println("cur p " + curP);
 
         fieldArr = new Field[size*6+1][size*4+1];
@@ -38,6 +41,7 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
+        bot = new Bot(checkers, checkers.get(0).getColor());
 
         for (int i = 0; i < p; i++) {
             players.add(Integer.toString(i));
@@ -61,6 +65,9 @@ public class Board {
         System.out.println("cur p " + curP);
         if (getTouchedChecker() != null) {
             setTouchedChecker(null);
+        }
+        if(curP==1) {
+            bot.move();
         }
     }
 
@@ -112,11 +119,13 @@ public class Board {
                     if (n == 2) {
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, "1");
+                            checkers.add(fieldArr[j][i].getChecker());
                         }
                     }
                     if (n == 3) {
                         if (j+i <= size*3 - 2) {
                             fieldArr[j][i].setInitChecker(j, i, "1");
+                            checkers.add(fieldArr[j][i].getChecker());
                         }
                         if (j-i >= size*3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, "2");
@@ -125,6 +134,7 @@ public class Board {
                     if (n == 4) {
                         if (i-j >= size + 2) {
                             fieldArr[j][i].setInitChecker(j, i, "1");
+                            checkers.add(fieldArr[j][i].getChecker());
                         }
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, "2");
@@ -136,6 +146,7 @@ public class Board {
                     if (n == 6) {
                         if (i-j >= size + 2) {
                             fieldArr[j][i].setInitChecker(j, i, "1");
+                            checkers.add(fieldArr[j][i].getChecker());
                         }
                         if (i+j <= size * 3 - 2) {
                             fieldArr[j][i].setInitChecker(j, i, "2");

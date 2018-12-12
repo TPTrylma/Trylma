@@ -23,7 +23,7 @@ public class Trylma extends Application {
         window = primaryStage;
         URL url = new File("src/main/resources/fxml/testMenu.fxml").toURL();
         Parent root = FXMLLoader.load(url);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Trylma");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
