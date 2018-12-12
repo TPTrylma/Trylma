@@ -7,23 +7,23 @@ import static bin.Trylma.board;
 
 public class Checker extends Circle {
 
-    int posX;
-    int posY;
-    String color;
+    private int posX;
+    private int posY;
+    private int color;
     private double mouseX, mouseY;
     private double oldX, oldY;
 
-    public Checker(int posX, int posY, String color) {
+    public Checker(int posX, int posY, int color) {
         this.posX = posX;
         this.posY = posY;
         this.color = color;
         setRadius(22);
-        if(color.equals("0")) setFill(javafx.scene.paint.Color.ORANGE);
-        else if(color.equals("1")) setFill(javafx.scene.paint.Color.GREEN);
-        else if(color.equals("2")) setFill(javafx.scene.paint.Color.BLUE);
-        else if(color.equals("3")) setFill(javafx.scene.paint.Color.BROWN);
-        else if(color.equals("4")) setFill(javafx.scene.paint.Color.BLACK);
-        else if(color.equals("5")) setFill(javafx.scene.paint.Color.PINK);
+        if(color == 0) { setFill(javafx.scene.paint.Color.ORANGE); }
+        else if(color == 1) { setFill(javafx.scene.paint.Color.GREEN); }
+        else if(color == 2) { setFill(javafx.scene.paint.Color.BLUE); }
+        else if(color == 3) { setFill(javafx.scene.paint.Color.BROWN); }
+        else if(color == 4) { setFill(javafx.scene.paint.Color.BLACK); }
+        else if(color == 5) { setFill(javafx.scene.paint.Color.PINK); }
         move(posX, posY);
         setOnMousePressed( e-> {
             mouseX=e.getSceneX();
@@ -43,7 +43,7 @@ public class Checker extends Circle {
         return "pos: " + posX + " " + posY + " color: " + color;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
