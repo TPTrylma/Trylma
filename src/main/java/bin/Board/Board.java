@@ -183,4 +183,5 @@ public class Board {
     public Checker getTouchedChecker() {
         return touchedChecker;
     }
+    public int getSize(){return size;}
 }
