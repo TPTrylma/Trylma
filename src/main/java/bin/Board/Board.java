@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import bin.Bot;
 import bin.Rules.*;
 
 
@@ -22,7 +23,8 @@ public class Board {
     private int curP;
 
     private Checker touchedChecker;
-
+    List<Checker> checkers = new ArrayList<>();
+    Bot bot;
     public Board(int p, int size, Rules rules) {
         this.rules = rules;
         this.size = size;
@@ -74,6 +76,9 @@ public class Board {
         System.out.println("cur p " + players[curP]);
         if (getTouchedChecker() != null) {
             setTouchedChecker(null);
+        }
+        if(curP==1) {
+            bot.move();
         }
     }
 
@@ -312,4 +317,5 @@ public class Board {
         }
 
     }
+    public int getSize(){return size;}
 }
