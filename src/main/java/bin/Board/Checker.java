@@ -61,4 +61,10 @@ public class Checker extends Circle {
     public int getYpos(double y) {
         return (int) y/47;
     }
+
+    public int getX(){return posX;}
+    public int getY(){return posY;}
+
+    public void setX(int x){posX=x;}
+    public void setY(int y){posY=y;}
 }

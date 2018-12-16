@@ -3,69 +3,89 @@ package bin;
 import bin.Board.Checker;
 import bin.Board.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static bin.Trylma.board;
 
 public class Bot {
     List<Checker> checkers;
-    String color;
+    int position;
 
-    public Bot(List<Checker> checkers, String color){
+    public Bot(List<Checker> checkers, int position){
         this.checkers=checkers;
-        this.color=color;
+        this.position=position;
     }
     public void move(){
-        Field field=null;
+        int checker_jump=0;
         Checker checker = chooseChecker();
+        System.out.println(checker);
+        Field field;
         if(checker!=null) {
-            if (jump(checker) != null) {
+            while(jump(checker) != null) {
                 field = jump(checker);
-                board.move(checker.posX, checker.posY, field.getPosX(), field.getPosY());
-                board.nextPlayer();
-            } else {
-                field = checkAround(checker, 1);
-                if (field == null) board.nextPlayer();
-                else board.move(checker.posX, checker.posY, field.getPosX(), field.getPosY());
+                board.move(checker.getX(), checker.getY(), field.getPosX(), field.getPosY());
+                checker.setX(field.getPosX());
+                checker.setY(field.getPosY());
+                checker_jump++;
             }
-            System.out.println(checker.posX + " " + checker.posY + " " + field.getPosX() + " " + field.getPosY());
-        }
-        if(field!=null) {
-            checker.posX = field.getPosX();
-            checker.posY = field.getPosY();
+            if(checker_jump>0) {board.nextPlayer();return;}
+            field = checkAround(checker, 1);
+            if (field == null) board.nextPlayer();
+            else {
+                board.move(checker.getX(), checker.getY(), field.getPosX(), field.getPosY());
+                checker.setX(field.getPosX());
+                checker.setY(field.getPosY());
+            }
+
+        } else {
+            board.nextPlayer();
         }
     }
-    private Checker chooseChecker(){
+    private List<Checker> randCheckers(){
+        List<Checker> c = new ArrayList<>();
         for(Checker checker : checkers){
-            if(!checkFront(board.getField(checker.posX, checker.posY), checker)) continue;
+            if(jump(checker) != null) c.add(checker);
+        }
+        for (Checker checker : checkers){
+            if(!c.contains(checker)) c.add(checker);
+        }
+        return c;
+    }
+    private Checker chooseChecker(){
+        for(Checker checker : randCheckers()){
+            if(!checkFront(board.getField(checker.getX(), checker.getY()), checker)) {System.out.println("herovo"); continue;}
             try{
-                if((board.getField(checker.posX+1, checker.posY+1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
+                if((board.getField(checker.getX()+1, checker.getY()+1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
             }catch (Exception e){}
             try{
-                if((board.getField(checker.posX-1, checker.posY+1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
+                if((board.getField(checker.getX()-1, checker.getY()+1)).getChecker()==null && checkAround(checker,1)!=null)
+                    System.out.println(checkAround(checker,1));
+                    return checker;
             }catch (Exception e){}
             try{
-                if((board.getField(checker.posX-1, checker.posY-1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
+                if((board.getField(checker.getX()-1, checker.getY()-1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
             }catch (Exception e){}
             try {
-                if((board.getField(checker.posX+1, checker.posY-1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
+                if((board.getField(checker.getX()+1, checker.getY()-1)).getChecker()==null && checkAround(checker,1)!=null) return checker;
             }catch (Exception e){}
             try {
-                if((board.getField(checker.posX+2, checker.posY)).getChecker()==null && checkAround(checker,1)!=null) return checker;
+                if((board.getField(checker.getX()+2, checker.getY())).getChecker()==null && checkAround(checker,1)!=null) return checker;
             }catch (Exception e){}
             try {
-                if((board.getField(checker.posX-2, checker.posY)).getChecker()==null && checkAround(checker,1)!=null) return checker;
+                if((board.getField(checker.getX()-2, checker.getY())).getChecker()==null && checkAround(checker,1)!=null) return checker;
             }catch (Exception e){}
         }
-        System.out.println("UPS!");
         return null;
     }
     public boolean checkFront(Field field, Checker checker){
         try {
-            if(board.getField(field.getPosX()+1, field.getPosY()+1).getChecker()==null) return true;
+            if(board.getField(field.getPosX()+1, field.getPosY()+1).getChecker()==null)
+                return true;
         }catch (Exception e){}
         try {
-            if(board.getField(field.getPosX()-1, field.getPosY()+1).getChecker()==null) return true;
+            if(board.getField(field.getPosX()-1, field.getPosY()+1).getChecker()==null)
+                return true;
         }catch (Exception e){}
         try {
             if(jump(checker)!=null) return true;
@@ -73,20 +93,20 @@ public class Bot {
         return false;
     }
     private Field checkAround(Checker checker, int n){
-        try{if((board.getField(checker.posX+n, checker.posY+n)).getChecker()==null && checkPosition(board.getField(checker.posX+n, checker.posY+n))) {
-            return board.getField(checker.posX+n, checker.posY+n);
+        try{if((board.getField(checker.getX()+n, checker.getY()+n)).getChecker()==null && checkPosition(board.getField(checker.getX()+n, checker.getY()+n))) {
+            return board.getField(checker.getX()+n, checker.getY()+n);
         }}catch (Exception e){}
         try {
-        if((board.getField(checker.posX-n, checker.posY+n)).getChecker()==null && checkPosition(board.getField(checker.posX-n, checker.posY+n))) {
-            return board.getField(checker.posX-n, checker.posY+n);
+        if((board.getField(checker.getX()-n, checker.getY()+n)).getChecker()==null && checkPosition(board.getField(checker.getX()-n, checker.getY()+n))) {
+            return board.getField(checker.getX()-n, checker.getY()+n);
         }}catch (Exception e){}
         try {
-        if((board.getField(checker.posX+n*2, checker.posY)).getChecker()==null && checkPosition(board.getField(checker.posX+n*2, checker.posY))) {
-            return board.getField(checker.posX+n*2, checker.posY);
+        if((board.getField(checker.getX()+n*2, checker.getY())).getChecker()==null && checkPosition(board.getField(checker.getX()+n*2, checker.getY()))) {
+            return board.getField(checker.getX()+n*2, checker.getY());
         }}catch (Exception e){}
         try {
-            if((board.getField(checker.posX-n*2, checker.posY)).getChecker()==null && checkPosition(board.getField(checker.posX-n*2, checker.posY))) {
-                return board.getField(checker.posX-n*2, checker.posY);
+            if((board.getField(checker.getX()-n*2, checker.getY())).getChecker()==null && checkPosition(board.getField(checker.getX()-n*2, checker.getY()))) {
+                return board.getField(checker.getX()-n*2, checker.getY());
             }
         }catch (Exception e){}
         return null;
@@ -97,34 +117,34 @@ public class Bot {
     }
     private Field jump(Checker checker){
         try{
-            if((board.getField(checker.posX+2, checker.posY+2)).getChecker()==null && checkAround(checker,2)!=null &&
-                    jumpCheck(checker, board.getField(checker.posX+1, checker.posY+1)) && checkPosition(board.getField(checker.posX+2, checker.posY+2)))
-                return board.getField(checker.posX+2, checker.posY+2);
+            if((board.getField(checker.getX()+2, checker.getY()+2)).getChecker()==null && checkAround(checker,2)!=null &&
+                    jumpCheck(checker, board.getField(checker.getX()+1, checker.getY()+1)) && checkPosition(board.getField(checker.getX()+2, checker.getY()+2)))
+                return board.getField(checker.getX()+2, checker.getY()+2);
         }catch (Exception e){}
         try{
-            if((board.getField(checker.posX-2, checker.posY+2)).getChecker()==null && checkAround(checker,2)!=null &&
-                    jumpCheck(checker, board.getField(checker.posX-1, checker.posY+1)) && checkPosition(board.getField(checker.posX-2, checker.posY+2)))
-                return board.getField(checker.posX-2, checker.posY+2);
+            if((board.getField(checker.getX()-2, checker.getY()+2)).getChecker()==null && checkAround(checker,2)!=null &&
+                    jumpCheck(checker, board.getField(checker.getX()-1, checker.getY()+1)) && checkPosition(board.getField(checker.getX()-2, checker.getY()+2)))
+                return board.getField(checker.getX()-2, checker.getY()+2);
         }catch (Exception e){}
         /*try{
-            if((board.getField(checker.posX-2, checker.posY-2)).getChecker()==null && checkAround(checker,2)!=null &&
-                    jumpCheck(checker, board.getField(checker.posX-1, checker.posY-1)))
-                return board.getField(checker.posX-2, checker.posY-2);
+            if((board.getField(checker.getX()-2, checker.posY-2)).getChecker()==null && checkAround(checker,2)!=null &&
+                    jumpCheck(checker, board.getField(checker.getX()-1, checker.posY-1)))
+                return board.getField(checker.getX()-2, checker.posY-2);
         }catch (Exception e){}*/
         /*try {
-            if((board.getField(checker.posX+2, checker.posY-2)).getChecker()==null && checkAround(checker,2)!=null &&
-                    jumpCheck(checker, board.getField(checker.posX+1, checker.posY-1)))
-                return board.getField(checker.posX+2, checker.posY-2);
+            if((board.getField(checker.getX()+2, checker.posY-2)).getChecker()==null && checkAround(checker,2)!=null &&
+                    jumpCheck(checker, board.getField(checker.getX()+1, checker.posY-1)))
+                return board.getField(checker.getX()+2, checker.posY-2);
         }catch (Exception e){}*/
         try {
-            if((board.getField(checker.posX+2, checker.posY)).getChecker()==null && checkAround(checker,2)!=null &&
-                    jumpCheck(checker, board.getField(checker.posX+1, checker.posY)) && checkPosition(board.getField(checker.posX+2, checker.posY)))
-                return board.getField(checker.posX+2, checker.posY);
+            if((board.getField(checker.getX()+2, checker.getY())).getChecker()==null && checkAround(checker,2)!=null &&
+                    jumpCheck(checker, board.getField(checker.getX()+1, checker.getY())) && checkPosition(board.getField(checker.getX()+2, checker.getY())))
+                return board.getField(checker.getX()+2, checker.getY());
         }catch (Exception e){}
         try {
-            if((board.getField(checker.posX-2, checker.posY)).getChecker()==null && checkAround(checker,2)!=null &&
-                    jumpCheck(checker, board.getField(checker.posX-1, checker.posY)) && checkPosition(board.getField(checker.posX-2, checker.posY)))
-                return board.getField(checker.posX-2, checker.posY);
+            if((board.getField(checker.getX()-2, checker.getY())).getChecker()==null && checkAround(checker,2)!=null &&
+                    jumpCheck(checker, board.getField(checker.getX()-1, checker.getY())) && checkPosition(board.getField(checker.getX()-2, checker.getY())))
+                return board.getField(checker.getX()-2, checker.getY());
         }catch (Exception e){}
         System.out.println("Bad");
         return null;
