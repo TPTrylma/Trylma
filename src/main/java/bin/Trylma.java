@@ -67,7 +67,7 @@ public class Trylma extends Application {
 
     public static void main(String[] args) {
 
-        name = "Taszczerrr";
+        name = "Pidor";
 
         launch(args);
     }

@@ -7,6 +7,8 @@ import java.util.Random;
 import bin.Bot;
 import bin.Rules.*;
 
+import static java.lang.Thread.sleep;
+
 
 public class Board {
 
@@ -25,8 +27,8 @@ public class Board {
     private Checker touchedChecker;
 
     //------------------
-    Bot bot;
-    List<Checker> checkers = new ArrayList<>();
+    Bot bot0, bot2, bot4;
+    List<Checker> allCheckers = new ArrayList<>();
     //------------------
 
     public Board(int p, int size, Rules rules) {
@@ -44,9 +46,18 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
-        bot = new Bot(checkers, 0);
+        addBot(0);
+        addBot(2);
+        addBot(4);
     }
-
+    public void addBot(int pos){
+        List<Checker> checkers = new ArrayList<>();
+        for (Checker checker : allCheckers){
+            if(checker.getColor()==pos) checkers.add(checker);
+        }if(pos==0) bot0 = new Bot(checkers, pos);
+        if(pos==2) bot2 = new Bot(checkers, pos);
+        if(pos==4) bot4 = new Bot(checkers, pos);
+    }
     public Field[][] getArr() {
         return fieldArr;
     }
@@ -83,7 +94,12 @@ public class Board {
             setTouchedChecker(null);
         }
         if(curP==0) {
-            bot.move();
+            bot0.move();
+        }else if(curP==2) {
+            bot2.move();
+        }
+        else if(curP==4) {
+            bot4.move();
         }
     }
 
@@ -125,49 +141,59 @@ public class Board {
                 if (fieldArr[j][i] != null) {
                     if (i > 3 * size) {
                         fieldArr[j][i].setInitChecker(j, i, 0);
-                        checkers.add(fieldArr[j][i].getChecker());
+                        allCheckers.add(fieldArr[j][i].getChecker());
                     }
 
                     if (n == 2) {
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
-                            checkers.add(fieldArr[j][i].getChecker());
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                     }
                     if (n == 3) {
                         if (j+i <= size*3 - 2) {
                             fieldArr[j][i].setInitChecker(j, i, 2);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (j-i >= size*3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 4);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                     }
                     if (n == 4) {
                         if (i-j >= size + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 1);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (j-i >= size * 3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 4);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                     }
                     if (n == 6) {
                         if (i-j >= size + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 1);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (i+j <= size * 3 - 2) {
                             fieldArr[j][i].setInitChecker(j, i, 2);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (j-i >= size * 3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 4);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                         if (i+j >= size * 7 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 5);
+                            allCheckers.add(fieldArr[j][i].getChecker());
                         }
                     }
                 }
