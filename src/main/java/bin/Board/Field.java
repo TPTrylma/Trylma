@@ -10,14 +10,16 @@ public class Field extends Circle {
 
     Checker checker;
     Board board;
-
+    public static int fieldSizeX, fieldSizeY;
     Field(int posX, int posY, Board board){
         this.posX = posX;
         this.posY = posY;
 
         this.board = board;
         setRadius(27);
-        relocate(posX*27, posY*47);
+        fieldSizeX=27;
+        fieldSizeY=47;
+        relocate(posX*fieldSizeX, posY*fieldSizeY);
         setFill(Color.GRAY);
     }
     public String getInfo(){

@@ -63,8 +63,8 @@ public class Checker extends Circle {
     }
 
     public void move(int x, int y) {
-        oldX = x*27+5;
-        oldY=y*47+5;
+        oldX = x* Field.fieldSizeX +5;
+        oldY=y*Field.fieldSizeY+5;
         relocate(oldX, oldY);
     }
 
