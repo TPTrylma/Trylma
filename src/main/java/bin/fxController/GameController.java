@@ -17,7 +17,7 @@ public class GameController {
     private TextField text;
 
     @FXML
-    public static TextArea chat;
+    public TextArea chat;
 
 
     public void setPane(Pane pane) {

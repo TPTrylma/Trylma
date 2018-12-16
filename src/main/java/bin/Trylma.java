@@ -2,10 +2,12 @@ package bin;
 
 import bin.Board.Board;
 import bin.fxController.GameController;
+import bin.fxController.TestMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -45,7 +47,6 @@ public class Trylma extends Application {
                 socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
 
-
         new Thread(() -> {
             while (true) {
                 try {
@@ -55,7 +56,8 @@ public class Trylma extends Application {
                         out.println(name);
                     } else if (line.startsWith("MESSAGE")) {
                         //GameController.chat.appendText(line.substring(8) + "\n");
-                        System.out.println(line.substring(8) + "\n");
+                        TestMenuController.gc.chat.appendText(line.substring(8) + "\n");
+                        //System.out.println(line.substring(8) + "\n");
                     }
                 } catch (IOException e) {}
             }

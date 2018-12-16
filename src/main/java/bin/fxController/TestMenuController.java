@@ -28,6 +28,8 @@ public class TestMenuController {
     @FXML
     private Button startButton;
 
+    public static GameController gc;
+
 
     public void startButtonPressed() throws Exception {
 
@@ -55,7 +57,7 @@ public class TestMenuController {
         FXMLLoader loader = new FXMLLoader(url);
 
         AnchorPane aPane = loader.load();
-        GameController gc = loader.getController();
+        gc = loader.getController();
 
         gc.setPane(rootPane);
 
