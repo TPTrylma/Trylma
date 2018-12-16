@@ -1,8 +1,10 @@
 package bin.fxController;
 
 import bin.Trylma;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 
@@ -12,7 +14,10 @@ public class GameController {
     private Pane trylma;
 
     @FXML
-    private Button finishButton;
+    private TextField text;
+
+    @FXML
+    public static TextArea chat;
 
 
     public void setPane(Pane pane) {
@@ -21,6 +26,18 @@ public class GameController {
 
     public void finishPressed() {
         Trylma.board.nextPlayer();
+    }
+
+    @FXML
+    public void onEnter(ActionEvent ae){
+
+        if (text.getText().equals("")) {
+            return;
+        }
+        Trylma.out.println(text.getText());
+        //chat.appendText(text.getText() + "\n");
+        text.setText("");
+
     }
 
 }
