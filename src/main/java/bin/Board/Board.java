@@ -40,7 +40,7 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
-        bot = new Bot(checkers, 3);
+        bot = new Bot(checkers, 0);
     }
 
     public Field[][] getArr() {
@@ -78,7 +78,7 @@ public class Board {
         if (getTouchedChecker() != null) {
             setTouchedChecker(null);
         }
-        if(curP==3) {
+        if(curP==0) {
             bot.move();
         }
     }
@@ -122,12 +122,12 @@ public class Board {
                 if (fieldArr[j][i] != null) {
                     if (i > 3 * size) {
                         fieldArr[j][i].setInitChecker(j, i, 0);
+                        checkers.add(fieldArr[j][i].getChecker());
                     }
 
                     if (n == 2) {
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
-                            checkers.add(fieldArr[j][i].getChecker());
                         }
                     }
                     if (n == 3) {
@@ -144,7 +144,6 @@ public class Board {
                         }
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
-                            checkers.add(fieldArr[j][i].getChecker());
                         }
                         if (j-i >= size * 3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 4);
@@ -159,7 +158,6 @@ public class Board {
                         }
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
-                            checkers.add(fieldArr[j][i].getChecker());
                         }
                         if (j-i >= size * 3 + 2) {
                             fieldArr[j][i].setInitChecker(j, i, 4);
@@ -322,4 +320,5 @@ public class Board {
 
     }
     public int getSize(){return size;}
+
 }
