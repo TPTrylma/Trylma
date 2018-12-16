@@ -44,7 +44,7 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
-        bot = new Bot(checkers, 0);
+        //bot = new Bot(checkers, 0);
     }
 
     public Field[][] getArr() {
