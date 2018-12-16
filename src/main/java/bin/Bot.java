@@ -81,6 +81,7 @@ public class Bot {
         }
         return c;
     }
+    
     private Checker chooseChecker(){
         for(Checker checker : randCheckers()){
             //if(!checkFront(board.getField(checker.getX(), checker.getY()), checker)) { continue;}
@@ -107,7 +108,8 @@ public class Bot {
         }
         return null;
     }
-    public boolean checkFront(Field field, Checker checker){
+    
+    public boolean checkFront(Field field, Checker checker) {
         try {
             if(board.getField(field.getPosX()+1, field.getPosY()+1).getChecker()==null)
                 return true;
@@ -141,6 +143,7 @@ public class Bot {
         if(field.getChecker()!=null) return true;
         return false;
     }
+    
     private Field jump(Checker checker){
         try{
             if((board.getField(checker.getX()+dirX(checker, 2), checker.getY()+dirY(checker, 2))).getChecker()==null &&
@@ -151,8 +154,10 @@ public class Bot {
         }catch (Exception e){}
         return null;
     }
-    private boolean checkPosition(Field field){
+    
+    private boolean checkPosition(Field field) {
         if(field.getPosX()<=board.getSize()*4 && field.getPosX()>=board.getSize()*2) return true;
         return false;
     }
+    
 }

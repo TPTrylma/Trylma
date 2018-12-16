@@ -38,6 +38,7 @@ public class TestMenuController {
         Pane paneChecker = new Pane();
         Pane paneField = new Pane();
         AnchorPane rootPane = new AnchorPane();
+
         for(int i =0; i<=size*4; i++){
             for(int j=0; j<=size*6; j++){
                 if(Trylma.board.getArr()[j][i]!=null) {
@@ -61,6 +62,8 @@ public class TestMenuController {
         gameScene = new Scene(aPane);
 
         Trylma.window.setScene(gameScene);
+
+        Trylma.run();
 
     }
 

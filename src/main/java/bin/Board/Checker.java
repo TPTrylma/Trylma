@@ -38,6 +38,21 @@ public class Checker extends Circle {
         });
     }
 
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosX(int x) {
+        posX = x;
+    }
+
+    public void setPosY(int y) {
+        posY = y;
+    }
 
     String getInfo() {
         return "pos: " + posX + " " + posY + " color: " + color;

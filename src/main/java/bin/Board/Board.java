@@ -23,8 +23,12 @@ public class Board {
     private int curP;
 
     private Checker touchedChecker;
-    List<Checker> checkers = new ArrayList<>();
+
+    //------------------
     Bot bot;
+    List<Checker> checkers = new ArrayList<>();
+    //------------------
+
     public Board(int p, int size, Rules rules) {
         this.rules = rules;
         this.size = size;
@@ -87,7 +91,6 @@ public class Board {
         return fieldArr[x][y];
     }
 
-
     private void createFields(int size){
 
         int start;
@@ -128,6 +131,7 @@ public class Board {
                     if (n == 2) {
                         if (i < size) {
                             fieldArr[j][i].setInitChecker(j, i, 3);
+                            checkers.add(fieldArr[j][i].getChecker());
                         }
                     }
                     if (n == 3) {
@@ -319,6 +323,7 @@ public class Board {
         }
 
     }
+
     public int getSize(){return size;}
 
 }
