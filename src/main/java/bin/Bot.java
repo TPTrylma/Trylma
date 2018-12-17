@@ -5,11 +5,8 @@ import bin.Board.Field;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static bin.Trylma.board;
-import static java.lang.Math.random;
-import static java.lang.Thread.sleep;
 
 public class Bot {
     public List<Checker> checkers;

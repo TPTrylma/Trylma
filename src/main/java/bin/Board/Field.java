@@ -3,14 +3,12 @@ package bin.Board;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import static bin.Trylma.board;
-
 
 public class Field extends Circle {
 
-    Checker checker;
-    Board board;
-    public static int fieldSizeX, fieldSizeY;
+    private Checker checker;
+    private Board board;
+    static int fieldSizeX, fieldSizeY;
     Field(int posX, int posY, Board board){
         this.posX = posX;
         this.posY = posY;
@@ -26,8 +24,8 @@ public class Field extends Circle {
         if (checker == null) return "field pos: " + posX + " " + posY;
         return "field pos: " + posX + " " + posY + " checker: " + checker.getInfo();
     }
-    int posX;
-    int posY;
+    private int posX;
+    private int posY;
 
 
     public void setInitChecker(int posX, int posY, int checker){

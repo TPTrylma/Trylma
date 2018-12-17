@@ -31,7 +31,6 @@ public class GameController {
         if (Trylma.color == Trylma.board.getCurPlayer()) {
             Trylma.out.println("FINISH " + Trylma.color);
         }
-        //Trylma.board.nextPlayer();
     }
 
     @FXML
@@ -41,7 +40,6 @@ public class GameController {
             return;
         }
         Trylma.out.println("MESSAGE " + text.getText());
-        //chat.appendText(text.getText() + "\n");
         text.setText("");
 
     }

@@ -9,13 +9,6 @@ import java.io.IOException;
 
 public class JionServerController {
 
-    private static Scene gameScene;
-
-    public static GameController gc;
-
-    private int size;
-    private int players;
-    private String rules;
 
     @FXML
     private TextField ipField;
@@ -28,11 +21,10 @@ public class JionServerController {
     }
 
     public void joinButtonPress() throws IOException {
+        if (ipField.getText().equals("") || portField.getText().equals("")) {
+            return;
+        }
         Trylma.run(ipField.getText(), Integer.parseInt(portField.getText()));
-    }
-
-    public void addScene() {
-
     }
 
 }

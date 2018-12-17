@@ -2,12 +2,9 @@ package bin.Board;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import bin.Bot;
 import bin.Rules.*;
-
-import static java.lang.Thread.sleep;
 
 
 public class Board {
@@ -46,12 +43,7 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
-        //addBot(0);
-       // addBot(1);
-        //addBot(2);
-       // addBot(3);
-       // addBot(4);
-       // addBot(5);
+
     }
 
     public void addBot(int pos){
@@ -80,7 +72,6 @@ public class Board {
 
         if (playingP == 1) {
             System.out.println("GAME OVER");
-            //BLOCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
             return;
         }
 

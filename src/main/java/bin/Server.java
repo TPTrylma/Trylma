@@ -126,8 +126,6 @@ public class Server {
             } catch (IOException e) {
                 System.out.println(e);
             } finally {
-                // This client is going down!  Remove its name and its print
-                // writer from the sets, and close its socket.
                 if (name != null) {
                     names.remove(name);
                 }

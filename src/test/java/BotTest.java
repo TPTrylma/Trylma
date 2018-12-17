@@ -1,13 +1,10 @@
 import static org.junit.Assert.*;
 
 import bin.Board.Board;
-import bin.Board.Checker;
 import bin.Rules.ClassicRules;
 import bin.Trylma;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 
 public class BotTest {

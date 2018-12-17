@@ -1,22 +1,13 @@
 package bin.fxController;
 
-import bin.Board.Board;
-import bin.Rules.ClassicRules;
-import bin.Rules.LongJumpRules;
-import bin.Rules.Rules;
 import bin.Server;
 import bin.Trylma;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import static java.lang.Thread.sleep;
 
@@ -38,7 +29,7 @@ public class CreateServerController {
     private MenuButton rulesMB;
 
     @FXML
-    public void initialize() throws Exception{
+    public void initialize() {
         setSizeMenuButton();
         setPlayersMenuButton();
         setRulesMenuButton();
@@ -103,6 +94,9 @@ public class CreateServerController {
         int players = Integer.parseInt(playersMB.getText());
         int size = Integer.parseInt(sizeMB.getText());
 
+        if (portField.getText().equals("") || ipField.getText().equals("")) {
+            return;
+        }
 
         new Thread(() -> {
             try {

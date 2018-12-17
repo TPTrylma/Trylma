@@ -1,6 +1,6 @@
 package bin.Rules;
 
-import bin.Board.*;
+import bin.Board.Field;
 
 public class ClassicRules extends Rules {
 
