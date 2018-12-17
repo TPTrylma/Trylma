@@ -31,7 +31,7 @@ public class Board {
     List<Checker> allCheckers = new ArrayList<>();
     //------------------
 
-    public Board(int p, int size, Rules rules) {
+    public Board(int p, int size, Rules rules, int curP) {
         this.rules = rules;
         this.size = size;
         maxP = p;
@@ -40,15 +40,15 @@ public class Board {
         fieldArr = new Field[size*6+1][size*4+1];
         players = new int[6];
         setPlayers();
-        setCurP();
+        this.curP = curP;
 
         System.out.println("cur p " + curP);
 
         createFields(size);
         addCheckers(p, size);
-        addBot(0);
-        addBot(2);
-        addBot(4);
+//        addBot(0);
+//        addBot(2);
+//        addBot(4);
     }
     public void addBot(int pos){
         List<Checker> checkers = new ArrayList<>();
@@ -93,14 +93,14 @@ public class Board {
         if (getTouchedChecker() != null) {
             setTouchedChecker(null);
         }
-        if(curP==0) {
-            bot0.move();
-        }else if(curP==2) {
-            bot2.move();
-        }
-        else if(curP==4) {
-            bot4.move();
-        }
+//        if(curP==0) {
+//            bot0.move();
+//        }else if(curP==2) {
+//            bot2.move();
+//        }
+//        else if(curP==4) {
+//            bot4.move();
+//        }
     }
 
     public Field getField(int x, int y){
@@ -227,15 +227,8 @@ public class Board {
         }
     }
 
-    private void setCurP() {
-
-        Random rand = new Random();
-        int a = rand.nextInt(6);
-        while (players[a] == -1) {
-            a = rand.nextInt(6);
-        }
-        curP = a;
-
+    public int[] getPlayers() {
+        return players;
     }
 
     public void move(int fromX, int fromY, int toX, int toY){

@@ -32,17 +32,18 @@ public class Trylma extends Application {
 
     public static String name;
 
-    public static GameController gc;
+    private static GameController gc;
 
-    public static int color;
+    private static int color;
+    private static int curP;
 
-    public static int size;
+    private static int size;
 
-    public static int players;
+    private static int players;
 
-    public static Rules rules;
+    private static Rules rules;
 
-    public static BufferedReader in;
+    private static BufferedReader in;
     public static PrintWriter out;
 
     @Override
@@ -76,50 +77,51 @@ public class Trylma extends Application {
                         color = Integer.parseInt(line.substring(6));
                     } else if (line.startsWith("SIZE")) {
                         size = Integer.parseInt(line.substring(5));
+                    } else if (line.startsWith("FIRST")) {
+                        curP = Integer.parseInt(line.substring(6));
+                    } else if (line.startsWith("PLAYERS")) {
+                        players = Integer.parseInt(line.substring(8));
                     } else if (line.startsWith("RULES")) {
                         if (line.substring(6).equals("classic")) {
                             rules = new ClassicRules();
                         } else {
                             rules = new LongJumpRules();
                         }
-                    } else if (line.startsWith("PLAYERS")) {
-                        players = Integer.parseInt(line.substring(8));
-                        board = new Board(players, size, rules);
+                    board = new Board(players, size, rules, curP);
 
-                        Trylma.board = new Board(players, size, rules);
+                    Pane paneChecker = new Pane();
+                    Pane paneField = new Pane();
+                    AnchorPane rootPane = new AnchorPane();
 
-                        Pane paneChecker = new Pane();
-                        Pane paneField = new Pane();
-                        AnchorPane rootPane = new AnchorPane();
-
-                        for(int i =0; i<=size*4; i++){
-                            for(int j=0; j<=size*6; j++){
-                                if(Trylma.board.getArr()[j][i]!=null) {
-                                    paneField.getChildren().add(Trylma.board.getArr()[j][i]);
-                                }
-                                try{
-                                    if(Trylma.board.getArr()[j][i].getChecker()!=null) paneChecker.getChildren().add(Trylma.board.getArr()[j][i].getChecker());
-                                }catch (Exception e){}
+                    for (int i = 0; i <= size * 4; i++) {
+                        for (int j = 0; j <= size * 6; j++) {
+                            if (Trylma.board.getArr()[j][i] != null) {
+                                paneField.getChildren().add(Trylma.board.getArr()[j][i]);
+                            }
+                            try {
+                                if (Trylma.board.getArr()[j][i].getChecker() != null)
+                                    paneChecker.getChildren().add(Trylma.board.getArr()[j][i].getChecker());
+                            } catch (Exception e) {
                             }
                         }
-                        rootPane.getChildren().addAll(paneField, paneChecker);
+                    }
+                    rootPane.getChildren().addAll(paneField, paneChecker);
 
-                        URL url = new File("src/main/resources/fxml/game.fxml").toURL();
-                        FXMLLoader loader = new FXMLLoader(url);
+                    URL url = new File("src/main/resources/fxml/game.fxml").toURL();
+                    FXMLLoader loader = new FXMLLoader(url);
 
-                        AnchorPane aPane = loader.load();
+                    AnchorPane aPane = loader.load();
 
-                        gc = loader.getController();
+                    gc = loader.getController();
 
-                        gc.setPane(rootPane);
+                    gc.setPane(rootPane);
 
-                        gameScene = new Scene(aPane);
-                        Platform.runLater(
-                                () -> {
-                                    window.setScene(gameScene);
-                                }
-                        );
-
+                    gameScene = new Scene(aPane);
+                    Platform.runLater(
+                            () -> {
+                                window.setScene(gameScene);
+                            }
+                    );
 
                     }else if (line.startsWith("MESSAGE")) {
                         gc.chat.appendText(line.substring(8) + "\n");

@@ -1,5 +1,7 @@
 package bin;
 
+import bin.Board.Board;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Server {
 
@@ -20,6 +23,7 @@ public class Server {
     public Server(int players, int size, String rules, int PORT) throws IOException {
 
         this.PORT = PORT;
+
 
         ServerSocket listener = new ServerSocket(PORT);
         try {
@@ -40,7 +44,12 @@ public class Server {
 
         private int players;
         private int size;
+        public int color;
+        static int counter = 0;
+        static int[] p;
         private String rules;
+        private Board board;
+
 
         public Handler(Socket socket, int players, int size, String rules) {
             this.socket = socket;
@@ -56,14 +65,15 @@ public class Server {
                         socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(), true);
 
-                out.println("COLOR 0");
                 out.println("SIZE " + size);
-                out.println("RULES " + rules);
+                out.println("FIRST " + setCurP(players));
+                out.println("PLAYERS " + players);
+                out.println("COLOR " + nextPl());
                 try {
                     sleep(200);
-                } catch (Exception e) {}
-                out.println("PLAYERS " + players);
-
+                } catch (Exception e) {
+                }
+                out.println("RULES " + rules);
                 while (true) {
                     out.println("SUBMITNAME");
                     name = in.readLine();
@@ -78,6 +88,8 @@ public class Server {
                     }
 
                 }
+
+                board = Trylma.board;
 
                 writers.add(out);
 
@@ -107,8 +119,55 @@ public class Server {
                 }
             }
         }
+
+        private static int setCurP(int players) {
+            p = new int[6];
+
+            for (int i = 0; i < 6; i++) {
+                p[i] = -1;
+            }
+            if (players == 2) {
+                p[0] = 0;
+                p[3] = 3;
+            }
+            if (players == 3) {
+                p[0] = 0;
+                p[2] = 2;
+                p[4] = 4;
+            }
+            if (players == 4) {
+                p[0] = 0;
+                p[1] = 1;
+                p[3] = 3;
+                p[4] = 4;
+            }
+            if (players == 6) {
+                for (int i = 0; i < 6; i++) {
+                    p[i] = i;
+                }
+            }
+
+            Random rand = new Random();
+            int a = rand.nextInt(6);
+            while (p[a] == -1) {
+                a = rand.nextInt(6);
+            }
+
+            return a;
+        }
+
+        private int nextPl(){
+            int n;
+            for (int i = counter; i < 6; i++) {
+                if (p[i] != -1) {
+                    n = i;
+                    counter++;
+                    return n;
+                }
+            }
+            return 0;
+        }
+
     }
-
-
 
 }
