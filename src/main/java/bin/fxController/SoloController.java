@@ -4,29 +4,20 @@ import bin.Board.Board;
 import bin.Rules.ClassicRules;
 import bin.Rules.LongJumpRules;
 import bin.Rules.Rules;
-import bin.Server;
 import bin.Trylma;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import static java.lang.Thread.sleep;
-
-public class CreateServerController {
-
-    @FXML
-    private TextField ipField;
-
-    @FXML
-    private TextField portField;
+public class SoloController {
 
     @FXML
     private MenuButton sizeMB;
@@ -66,21 +57,21 @@ public class CreateServerController {
     }
 
     private void setPlayersMenuButton() {
+        MenuItem one = new MenuItem("1");
         MenuItem two = new MenuItem("2");
         MenuItem three = new MenuItem("3");
-        MenuItem four = new MenuItem("4");
-        MenuItem six = new MenuItem("6");
+        MenuItem five = new MenuItem("5");
 
+        playersMB.getItems().add(one);
         playersMB.getItems().add(two);
         playersMB.getItems().add(three);
-        playersMB.getItems().add(four);
-        playersMB.getItems().add(six);
-        playersMB.setText("2");
+        playersMB.getItems().add(five);
+        playersMB.setText("1");
 
+        one.setOnAction(event -> playersMB.setText("1"));
         two.setOnAction(event -> playersMB.setText("2"));
         three.setOnAction(event -> playersMB.setText("3"));
-        four.setOnAction(event -> playersMB.setText("4"));
-        six.setOnAction(event -> playersMB.setText("6"));
+        five.setOnAction(event -> playersMB.setText("5"));
     }
 
     private void setRulesMenuButton() {
@@ -99,21 +90,68 @@ public class CreateServerController {
         Trylma.window.setScene(Trylma.menu);
     }
 
-    public void createAndPlayButtonPress() throws IOException {
+    public void playButtonPress() throws IOException {
+
         int players = Integer.parseInt(playersMB.getText());
         int size = Integer.parseInt(sizeMB.getText());
 
+        Rules rules;
+        if (rulesMB.getText().equals("classic")) {
+            rules = new ClassicRules();
+        } else if (rulesMB.getText().equals("long jump")) {
+            rules = new LongJumpRules();
+        } else {
+            rules = new ClassicRules();
+        }
 
-        new Thread(() -> {
-            try {
-                new Server(players, size, rulesMB.getText(), Integer.parseInt(portField.getText()));
-            } catch (IOException e) {}
-        }).start();
-        try {
-            sleep(200);
-        } catch (Exception e) {}
+        Trylma.board = new Board(players+1, size, rules, 0);
+        Trylma.color = -1;
+
+        Pane paneChecker = new Pane();
+        Pane paneField = new Pane();
+        AnchorPane rootPane = new AnchorPane();
+
+        for(int i =0; i<=size*4; i++){
+            for(int j=0; j<=size*6; j++){
+                if(Trylma.board.getArr()[j][i]!=null) {
+                    paneField.getChildren().add(Trylma.board.getArr()[j][i]);
+                }
+                try{
+                    if(Trylma.board.getArr()[j][i].getChecker()!=null) paneChecker.getChildren().add(Trylma.board.getArr()[j][i].getChecker());
+                }catch (Exception e){}
+            }
+        }
+        rootPane.getChildren().addAll(paneField, paneChecker);
+
+        URL url = new File("src/main/resources/fxml/game.fxml").toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+
+        AnchorPane aPane = loader.load();
+
+        GameController gc = loader.getController();
+
+        if (players == 1) {
+            Trylma.board.addBot(3);
+        } else if (players == 2) {
+            Trylma.board.addBot(2);
+            Trylma.board.addBot(4);
+        } else if (players == 3) {
+            Trylma.board.addBot(1);
+            Trylma.board.addBot(3);
+            Trylma.board.addBot(4);
+        } else {
+            for (int i = 0; i < 5; i++) {
+                Trylma.board.addBot(i+1);
+            }
+        }
 
 
-        Trylma.run(ipField.getText(), Integer.parseInt(portField.getText()));
+        gc.setPane(rootPane);
+
+        Scene gameScene = new Scene(aPane);
+
+        Trylma.window.setScene(gameScene);
+
     }
+
 }

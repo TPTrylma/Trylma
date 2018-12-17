@@ -53,6 +53,7 @@ public class Board {
        // addBot(4);
        // addBot(5);
     }
+
     public void addBot(int pos){
         List<Checker> checkers = new ArrayList<>();
         for (Checker checker : allCheckers){
@@ -64,6 +65,7 @@ public class Board {
         if(pos==3) bot3 = new Bot(checkers, pos);
         if(pos==5) bot5 = new Bot(checkers, pos);
     }
+
     public Field[][] getArr() {
         return fieldArr;
     }
