@@ -27,8 +27,8 @@ public class Board {
     private Checker touchedChecker;
 
     //------------------
-    Bot bot0, bot2, bot4;
-    List<Checker> allCheckers = new ArrayList<>();
+    public Bot bot0, bot1, bot2, bot3, bot4, bot5;
+    public List<Checker> allCheckers = new ArrayList<>();
     //------------------
 
     public Board(int p, int size, Rules rules, int curP) {
@@ -46,17 +46,23 @@ public class Board {
 
         createFields(size);
         addCheckers(p, size);
-//        addBot(0);
-//        addBot(2);
-//        addBot(4);
+        //addBot(0);
+       // addBot(1);
+        //addBot(2);
+       // addBot(3);
+       // addBot(4);
+       // addBot(5);
     }
     public void addBot(int pos){
         List<Checker> checkers = new ArrayList<>();
         for (Checker checker : allCheckers){
             if(checker.getColor()==pos) checkers.add(checker);
         }if(pos==0) bot0 = new Bot(checkers, pos);
+        if(pos==1) bot1 = new Bot(checkers, pos);
         if(pos==2) bot2 = new Bot(checkers, pos);
         if(pos==4) bot4 = new Bot(checkers, pos);
+        if(pos==3) bot3 = new Bot(checkers, pos);
+        if(pos==5) bot5 = new Bot(checkers, pos);
     }
     public Field[][] getArr() {
         return fieldArr;
@@ -93,13 +99,24 @@ public class Board {
         if (getTouchedChecker() != null) {
             setTouchedChecker(null);
         }
-//        if(curP==0) {
-//            bot0.move();
-//        }else if(curP==2) {
-//            bot2.move();
-//        }
-//        else if(curP==4) {
-//            bot4.move();
+        if(curP==0 && bot0!=null) {
+            bot0.move();
+        }else if(curP==1 && bot1!=null) {
+            bot1.move();
+        }else if(curP==2 && bot2!=null) {
+            bot2.move();
+        }else if(curP==3 && bot3!=null) {
+            bot3.move();
+        }else if(curP==4 && bot4!=null) {
+            bot4.move();
+        }
+        else if(curP==5 && bot5!=null) {
+            bot5.move();
+        }
+//        try {
+//            sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
     }
 
@@ -344,5 +361,5 @@ public class Board {
     }
 
     public int getSize(){return size;}
-
+    public int getPlaying(){return playingP;}
 }

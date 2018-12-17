@@ -45,18 +45,6 @@ public class Bot {
             if(board.getField(c.getX()-n, c.getY()+n).getChecker()==null) return -n;
             if(board.getField(c.getX()+n, c.getY()+n).getChecker()==null) return n;
         }
-//        if(position==0 && n==1){
-//            if(c.getX()>dirField.getPosX()&&board.getField(c.getX()-n, c.getY()-n).getChecker()!=null
-//                    &&board.getField(c.getX()+n, c.getY()-n).getChecker()==null) return n;
-//            if(c.getX()<dirField.getPosX()&&board.getField(c.getX()+n, c.getY()-n).getChecker()!=null
-//                    &&board.getField(c.getX()-n, c.getY()-n).getChecker()==null) return -n;
-//        }
-//        if(position==3 && n==1){
-//            if(c.getX()>dirField.getPosX()&&board.getField(c.getX()-n, c.getY()+n).getChecker()!=null
-//                    &&board.getField(c.getX()+n, c.getY()+n).getChecker()==null) return n;
-//            if(c.getX()<dirField.getPosX()&&board.getField(c.getX()+n, c.getY()+n).getChecker()!=null
-//                    &&board.getField(c.getX()-n, c.getY()+n).getChecker()==null) return -n;
-//        }
         if(c.getX()>dirField.getPosX()) return -n;
         else  return n;
     }
@@ -65,11 +53,7 @@ public class Bot {
         else  return n;
     }
     public void move(){
-        try {
-            sleep(1000);
-        }catch (Exception e){}
         direction();
-        System.out.println("Dir is "+dirField.getPosX()+" "+dirField.getPosY());
         int checker_jump=0;
         Checker checker = chooseChecker();
         if(checker!=null )System.out.println("Checker is "+checker.getX()+" "+checker.getY());
@@ -88,10 +72,11 @@ public class Bot {
             field = checkAround(checker, 1);
             if (field == null) board.nextPlayer();
             else {
-                board.move(checker.getX(), checker.getY(), field.getPosX(), field.getPosY());
+                System.out.println("Move to "+field.getPosX()+" "+field.getPosY());
+                int x=checker.getX(), y=checker.getY();
                 checker.setX(field.getPosX());
                 checker.setY(field.getPosY());
-                System.out.println("Move to "+checker.getX()+" "+checker.getY());
+                board.move(x, y, field.getPosX(), field.getPosY());
             }
 
         } else {
@@ -101,12 +86,10 @@ public class Bot {
     private List<Checker> randCheckers(){
         List<Checker> c = new ArrayList<>();
         for(Checker checker : checkers){
-            if(jump(checker) != null && !(checker.getX()==dirField.getPosX() && checker.getY()==dirField.getPosY())) {c.add(checker);
-            System.out.println("Jumping checker added "+checker.getX()+" "+checker.getY());}
+            if(jump(checker) != null && !(checker.getX()==dirField.getPosX() && checker.getY()==dirField.getPosY())) {c.add(checker); }
         }
         for (Checker checker : checkers){
-            if(checkAround(checker, 1)!=null) {c.add(checker);
-            System.out.println("------------------------------");}
+            if(checkAround(checker, 1)!=null) {c.add(checker); }
         }
         return c;
     }
