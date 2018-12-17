@@ -116,6 +116,10 @@ public class Server {
                                         arr[3] + " " + arr[4]);
                             }
                         }
+                    } else if (input.startsWith("FINISH")) {
+                        for (PrintWriter writer : writers) {
+                            writer.println("FINISH");
+                        }
                     }
 
                 }

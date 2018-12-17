@@ -128,6 +128,8 @@ public class Trylma extends Application {
                         String[] arr = line.split(" ");
                         board.move(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]),
                                 Integer.parseInt(arr[2]), Integer.parseInt(arr[3]));
+                    } else if (line.startsWith("FINISH")) {
+                        board.nextPlayer();
                     }
 
                 } catch (IOException e) {}
