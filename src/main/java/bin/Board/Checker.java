@@ -1,6 +1,7 @@
 package bin.Board;
 
 
+import bin.Trylma;
 import javafx.scene.shape.Circle;
 
 import static bin.Trylma.board;
@@ -34,7 +35,9 @@ public class Checker extends Circle {
             relocate(e.getSceneX()-mouseX+oldX, e.getSceneY()-mouseY+oldY);
         });
         setOnMouseReleased(e-> {
-            board.move(getXpos(oldX), getYpos(oldY), getXpos(e.getSceneX()-mouseX+oldX), getYpos(e.getSceneY()-mouseY+oldY));
+            //board.move(getXpos(oldX), getYpos(oldY), getXpos(e.getSceneX()-mouseX+oldX), getYpos(e.getSceneY()-mouseY+oldY));
+            Trylma.out.println("MOVE " + Trylma.color + " " + getXpos(oldX) + " " + getYpos(oldY) + " " +
+                    getXpos(e.getSceneX()-mouseX+oldX) + " " + getYpos(e.getSceneY()-mouseY+oldY));
         });
     }
 

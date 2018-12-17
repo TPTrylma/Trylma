@@ -18,8 +18,6 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 
-import static java.lang.Thread.sleep;
-
 
 public class Trylma extends Application {
 
@@ -34,7 +32,7 @@ public class Trylma extends Application {
 
     private static GameController gc;
 
-    private static int color;
+    public static int color;
     private static int curP;
 
     private static int size;
@@ -123,8 +121,14 @@ public class Trylma extends Application {
                             }
                     );
 
-                    }else if (line.startsWith("MESSAGE")) {
+                    } else if (line.startsWith("MESSAGE")) {
                         gc.chat.appendText(line.substring(8) + "\n");
+                    } else if (line.startsWith("MOVE")) {
+                        line = line.substring(5);
+                        String[] arr = line.split(" ");
+
+                        board.move(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]),
+                                Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
                     }
 
                 } catch (IOException e) {}

@@ -34,7 +34,7 @@ public class GameController {
         if (text.getText().equals("")) {
             return;
         }
-        Trylma.out.println(text.getText());
+        Trylma.out.println("MESSAGE " + text.getText());
         //chat.appendText(text.getText() + "\n");
         text.setText("");
 
