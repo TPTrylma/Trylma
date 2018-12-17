@@ -126,9 +126,8 @@ public class Trylma extends Application {
                     } else if (line.startsWith("MOVE")) {
                         line = line.substring(5);
                         String[] arr = line.split(" ");
-
-                        board.move(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]),
-                                Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
+                        board.move(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]),
+                                Integer.parseInt(arr[2]), Integer.parseInt(arr[3]));
                     }
 
                 } catch (IOException e) {}
