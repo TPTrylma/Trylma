@@ -12,14 +12,14 @@ import static java.lang.Math.random;
 import static java.lang.Thread.sleep;
 
 public class Bot {
-    List<Checker> checkers;
+    public List<Checker> checkers;
     int position;
-    private Field dirField;
+    public Field dirField;
     public Bot(List<Checker> checkers, int position){
         this.checkers=checkers;
         this.position=position;
     }
-    private void direction(){
+    public void direction(){
         if(position==3){
             dirField=board.getField(board.getSize()*3, board.getSize()*4);
         }
@@ -37,7 +37,7 @@ public class Bot {
             dirField=board.getField(0, board.getSize());
         }
     }
-    private int dirX(Checker c, int n){
+    public int dirX(Checker c, int n){
         if(position==0&&c.getX()==dirField.getPosX()){
             if(board.getField(c.getX()-n, c.getY()-n).getChecker()==null) return -n;
             if(board.getField(c.getX()+n, c.getY()-n).getChecker()==null) return n;
@@ -48,7 +48,7 @@ public class Bot {
         if(c.getX()>dirField.getPosX()) return -n;
         else  return n;
     }
-    private int dirY(Checker c, int n){
+    public int dirY(Checker c, int n){
         if(c.getY()>=dirField.getPosY()) return -n;
         else  return n;
     }
@@ -83,7 +83,7 @@ public class Bot {
             board.nextPlayer();
         }
     }
-    private List<Checker> randCheckers(){
+    public List<Checker> randCheckers(){
         List<Checker> c = new ArrayList<>();
         for(Checker checker : checkers){
             if(jump(checker) != null && !(checker.getX()==dirField.getPosX() && checker.getY()==dirField.getPosY())) {c.add(checker); }
