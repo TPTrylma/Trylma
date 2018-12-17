@@ -42,7 +42,7 @@ public class LongJumpRules extends Rules {
                     return 0;
                 }
                 visualMove(from, to);
-                return 1;
+                return 1 ;
             }
 
             //long jump

@@ -35,6 +35,10 @@ public class Checker extends Circle {
             relocate(e.getSceneX()-mouseX+oldX, e.getSceneY()-mouseY+oldY);
         });
         setOnMouseReleased(e-> {
+            if (Trylma.color == -1) {
+                board.move(getXpos(oldX), getYpos(oldY), getXpos(e.getSceneX() - mouseX + oldX),
+                        getYpos(e.getSceneY() - mouseY + oldY));
+            }
             if (Trylma.color == board.getCurPlayer()) {
                 Trylma.out.println("MOVE " + Trylma.color + " " + getXpos(oldX) + " " + getYpos(oldY) + " " +
                         getXpos(e.getSceneX() - mouseX + oldX) + " " + getYpos(e.getSceneY() - mouseY + oldY));

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.fxController.GameController">
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin.fxController.GameController">
    <children>
       <Pane fx:id="trylma" layoutX="14.0" layoutY="14.0" prefHeight="872.0" prefWidth="872.0" />
       <Button layoutX="904.0" layoutY="22.0" mnemonicParsing="false" onAction="#finishPressed" text="Finish" />

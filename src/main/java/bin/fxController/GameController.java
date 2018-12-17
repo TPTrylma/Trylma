@@ -25,6 +25,9 @@ public class GameController {
     }
 
     public void finishPressed() {
+        if (Trylma.color == -1) {
+            Trylma.board.nextPlayer();
+        }
         if (Trylma.color == Trylma.board.getCurPlayer()) {
             Trylma.out.println("FINISH " + Trylma.color);
         }
