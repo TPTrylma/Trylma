@@ -39,7 +39,7 @@ public class Checker extends Circle {
             if (Trylma.color == board.getCurPlayer()) {
                 Trylma.out.println("MOVE " + Trylma.color + " " + getXpos(oldX) + " " + getYpos(oldY) + " " +
                         getXpos(e.getSceneX() - mouseX + oldX) + " " + getYpos(e.getSceneY() - mouseY + oldY));
-            } else relocate(getXpos(oldX), getYpos(oldY));
+            } else relocate(oldX, oldY);
         });
     }
 
