@@ -79,4 +79,9 @@ public class BoardTest {
         assertNotNull(board.getField(15,6).getChecker());
 
     }
+    @Test
+    public void fieldTest(){
+        board.getField(9, 6).setChecker(new Checker(9, 6, 0));
+        assertNotNull(board.getField(9,6).getChecker());
+    }
 }
