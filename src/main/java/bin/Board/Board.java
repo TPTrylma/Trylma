@@ -113,11 +113,6 @@ public class Board {
         else if(curP==5 && bot5!=null) {
             bot5.move();
         }
-//        try {
-//            sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public Field getField(int x, int y){
@@ -362,4 +357,5 @@ public class Board {
 
     public int getSize(){return size;}
     public int getPlaying(){return playingP;}
+    public void setCurrentPlayer(int n){curP=n;}
 }
