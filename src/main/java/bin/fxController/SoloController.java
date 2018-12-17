@@ -147,6 +147,7 @@ public class SoloController {
 
 
         gc.setPane(rootPane);
+        gc.text.setDisable(true);
 
         Scene gameScene = new Scene(aPane);
 

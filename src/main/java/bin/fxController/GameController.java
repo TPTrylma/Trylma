@@ -11,10 +11,10 @@ import javafx.scene.layout.Pane;
 public class GameController {
 
     @FXML
-    private Pane trylma;
+    public Pane trylma;
 
     @FXML
-    private TextField text;
+    public TextField text;
 
     @FXML
     public TextArea chat;
